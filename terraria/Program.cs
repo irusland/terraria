@@ -7,10 +7,14 @@ namespace terraria
     {
         public static void Main()
         {
-            var form = new Form();
-            Application.Run(form);
-
-            var game = new Game();
+            var stringMap = new[]{
+                "P  ",
+                "GGG",
+                "RRR",
+            };
+            var map = World.Create(stringMap);
+            var game = new Game(map);
+            Application.Run(new GameWindow(game));
         }
     }
 }

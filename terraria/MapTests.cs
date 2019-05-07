@@ -14,14 +14,14 @@ namespace terraria
                 "RR"
             };
 
-            var map = new Game.Map(strMap).map;
+            var map = World.Create(strMap).map;
 
             Assert.That(map.GetLength(0), Is.EqualTo(2));
             Assert.That(map.GetLength(1), Is.EqualTo(2));
-            Assert.That(map[0, 0], Is.EqualTo(Game.MapCell.Player));
-            Assert.That(map[1, 0], Is.EqualTo(Game.MapCell.Air));
-            Assert.That(map[0, 1], Is.EqualTo(Game.MapCell.Rock));
-            Assert.That(map[1, 1], Is.EqualTo(Game.MapCell.Rock));
+            Assert.That(map[0, 0], Is.EqualTo(World.Block.Player));
+            Assert.That(map[1, 0], Is.EqualTo(World.Block.Air));
+            Assert.That(map[0, 1], Is.EqualTo(World.Block.Rock));
+            Assert.That(map[1, 1], Is.EqualTo(World.Block.Rock));
         }
 
         [Test()]
@@ -31,11 +31,11 @@ namespace terraria
                 "P"
             };
 
-            var map = new Game.Map(strMap).map;
+            var map = World.Create(strMap).map;
 
             Assert.That(map.GetLength(0), Is.EqualTo(1));
             Assert.That(map.GetLength(1), Is.EqualTo(1));
-            Assert.That(map[0, 0], Is.EqualTo(Game.MapCell.Player));
+            Assert.That(map[0, 0], Is.EqualTo(World.Block.Player));
         }
 
         [Test()]
@@ -45,7 +45,7 @@ namespace terraria
                 ""
             };
 
-            var map = new Game.Map(strMap).map;
+            var map = World.Create(strMap).map;
 
             Assert.That(map.GetLength(0), Is.EqualTo(0));
             Assert.That(map.GetLength(1), Is.EqualTo(1));
@@ -56,7 +56,7 @@ namespace terraria
         {
             var strMap = new string[0];
 
-            var map = new Game.Map(strMap).map;
+            var map = World.Create(strMap).map;
 
             Assert.That(map.GetLength(0), Is.EqualTo(0));
             Assert.That(map.GetLength(1), Is.EqualTo(0));
@@ -72,9 +72,9 @@ namespace terraria
 
             try
             {
-                var map = new Game.Map(strMap).map;
+                var map = World.Create(strMap).map;
             }
-            catch(FormatException e)
+            catch (FormatException e)
             {
                 Assert.True(true);
                 return;

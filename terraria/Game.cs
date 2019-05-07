@@ -1,106 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace terraria
 {
     public class Game
     {
-        public enum MapCell
+        private readonly World world;
+
+        public Game(World world)
         {
-            Grass,
-            Player,
-            Tree,
-            Rock,
-            Air
+            this.world = world;
         }
 
-        public class Map
+        public void Update()
         {
-            private readonly int width;
-            private readonly int height;
-            private readonly Tuple<int, int> intialPlayerPossition = Tuple.Create(-1, -1);
+            //Recount all props
+        }
 
-            public MapCell[,] map;
-
-            public void PrintMap()
+        public void UpdateOnKeyPress(Keys key)
+        {
+            switch (key)
             {
-                for (var x = 0; x < width; x++)
-                {
-                    for (var y = 0; y < height; y++)
-                    {
-                        Console.Write(map[x, y]);
-                    }
-                    Console.WriteLine();
-                }
-            }
-
-            public Map(int w, int h)
-            {
-                width = w;
-                height = h;
-                map = new MapCell[width, height];
-            }
-
-            public Map(MapCell[,] cells)
-            {
-                map = cells;
-            }
-
-            public Map(string[] stringMap)
-            {
-                height = stringMap.Length;
-                width = 0;
-                try
-                {
-                    width = stringMap[0].Length;
-                }
-                catch
-                {
-
-                }
-                map = new MapCell[width, height];
-
-                for (var x = 0; x < width; x++)
-                {
-                    for (var y = 0; y < height; y++)
-                    {
-                        switch (stringMap[y][x])
-                        {
-                            case 'P':
-                                map[x, y] = MapCell.Player;
-                                intialPlayerPossition = (x, y);
-                                break;
-                            case 'G':
-                                map[x, y] = MapCell.Grass;
-                                break;
-                            case 'T':
-                                map[x, y] = MapCell.Tree;
-                                break;
-                            case 'R':
-                                map[x, y] = MapCell.Rock;
-                                break;
-                            case ' ':
-                                map[x, y] = MapCell.Air;
-                                break;
-                            default:
-                                throw new FormatException($"{stringMap[y][x]} is unknown cell type");
-                        }
-                    }
-                }
+                case Keys.Up | Keys.W | Keys.Space:
+                    Jump();
+                    break;
+                case Keys.Down | Keys.S:
+                    Dig();
+                    break;
+                case Keys.Left | Keys.A:
+                    GoLeft();
+                    break;
+                case Keys.Right | Keys.D:
+                    GoRight();
+                    break;
             }
         }
 
-        private readonly Map map;
-
-        public Game()
+        private enum Direction
         {
-            var strMap = new[]{
-                "P ",
-                "RR"
-            };
+            Up,
+            Down,
+            Right,
+            Left
+        }
 
-            map = new Map(strMap);
-            map.PrintMap();
+        private Dictionary<Direction, Point> directionToOffset = new Dictionary<Direction, Point>
+        {
+            { Direction.Up, new Point(0, 1) },
+            { Direction.Down, new Point(0, -1) },
+            { Direction.Right, new Point(1, 0) },
+            { Direction.Left, new Point(-1, 0) }
+
+        };
+
+        private void Jump()
+        {
+            var block = CheckWhatsAhead(world, world.player.position, Direction.Up);
+            if (block == World.Block.Air)
+            {
+                // Jump
+            }
+            else
+            {
+                // Hit
+            }
+        }
+
+        private void Dig()
+        {
+            var block = CheckWhatsAhead(world, world.player.position, Direction.Down);
+            //var selectedItem = inventory.SelectedItem;
+            if (block == World.Block.Rock)
+            {
+                // Dig
+            }
+            else
+            {
+                // Hit
+            }
+        }
+
+        private void GoLeft()
+        {
+            // Left
+        }
+
+        private void GoRight()
+        {
+            // Right
+        }
+
+        private World.Block CheckWhatsAhead(World world, Point initial, Direction direction)
+        {
+            var offset = directionToOffset[direction];
+            return world.map[initial.X + offset.X, initial.Y + offset.Y];
         }
     }
 }
