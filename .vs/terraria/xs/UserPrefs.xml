@@ -2,8 +2,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="terraria/MapTests.cs">
     <Files>
       <File FileName="terraria/Program.cs" Line="6" Column="19" />
-      <File FileName="terraria/Logic.cs" Line="16" Column="28" />
-      <File FileName="terraria/MapTests.cs" Line="5" Column="13" />
+      <File FileName="terraria/MapTests.cs" Line="5" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,11 +13,6 @@
               <Node name="MapTests.cs" selected="True" />
             </Node>
           </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="terraria" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>

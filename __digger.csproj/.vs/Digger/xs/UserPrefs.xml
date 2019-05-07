@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{610D5A45-09EB-4839-B6E5-D8601DB31897}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Architecture/Program.cs">
+    <Files>
+      <File FileName="DiggerTask.cs" Line="50" Column="37" />
+      <File FileName="Game.cs" Line="41" Column="15" />
+      <File FileName="Architecture/Program.cs" Line="4" Column="17" />
+      <File FileName="Architecture/GameState.cs" Line="47" Column="9" />
+      <File FileName="Architecture/DiggerWindow.cs" Line="21" Column="30" />
+      <File FileName="Architecture/ICreature.cs" Line="10" Column="2" />
+      <File FileName="Architecture/CreatureMapCreator.cs" Line="12" Column="36" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="../../../DiggerTask.cs" line="209" offsetX="997" offsetY="6448" expression="result[0].DeltaX" liveUpdate="False" />
+    <Watch file="../../../DiggerTask.cs" line="209" offsetX="1000" offsetY="6478" expression="result[1].DeltaX" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Digger PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
