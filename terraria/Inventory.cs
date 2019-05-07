@@ -13,18 +13,21 @@ namespace terraria
             Axe,
             Pick,
             Shovel,
-            Shield
+            Shield,
+            Nothing
         }
 
         private List<InventorySlot> inventory = new List<InventorySlot>();
         private readonly int maxItemCount = 25;
+        private InventorySlot SlotInArms = new InventorySlot();
+        private readonly bool IsSlotInArms;
 
         public class InventorySlot
         {
             private int itemCount;
             private Item item;
             private int slotId;
-            public TypeItem
+            public TypeItem typeItem;
             public int ItemCount { get => itemCount; set => itemCount = value; }
             public Item Item { get => item; set => item = value; }
             public int SlotId { get => slotId; set => slotId = value; }
@@ -130,9 +133,11 @@ namespace terraria
             return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
         }
 
-        private void GetInformationAboutWeapon()
+        private TypeItem GetInformationAboutWeapon()
         {
-            return
+            if (IsSlotInArms)
+                return SlotInArms.typeItem;
+            return TypeItem.Nothing;
         }
     }
 }

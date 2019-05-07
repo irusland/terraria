@@ -14,7 +14,8 @@ namespace terraria
         public void TestEmptyInventory()
         {
             var inventory = new List<InventorySlot>();
-
+            var number = 1;
+            var Item = new Item(1, "Axe", "01");
 
         }
     }
