@@ -17,6 +17,7 @@ namespace terraria
         }
 
         private List<InventorySlot> inventory = new List<InventorySlot>();
+        private readonly int maxItemCount = 25;
 
         public class InventorySlot
         {
@@ -34,7 +35,7 @@ namespace terraria
             private string stringId;
             private string name;
             private string localizedName;
-           // private Image texture;
+            // private Image texture;
             private Dictionary<string, double> itemProperties = new Dictionary<string, double>();
 
             public Item(int id, string name, string strId)
@@ -54,20 +55,20 @@ namespace terraria
             public string StringId { get => stringId; set => stringId = value; }
             public string Name { get => name; set => name = value; }
             public string LocalizedName { get => localizedName; set => localizedName = value; }
-           // public Image Texture { get => Texture; set => Texture = value; }
+            // public Image Texture { get => Texture; set => Texture = value; }
             public Dictionary<string, double> ItemProperties { get => itemProperties; set => itemProperties = value; }
         }
 
         public void AddItem(Item item, int number = 1)
         {
-            var slots = inventory.Where(p => (p.Item == item) && (p.ItemCount < 25)).Select(p => p);
+            var slots = inventory.Where(p => (p.Item == item) && (p.ItemCount < maxItemCount)).Select(p => p);
             foreach (var slot in slots)
             {
-                var freePosition = 25 - slot.ItemCount;
+                var freePosition = maxItemCount - slot.ItemCount;
 
                 if (number > freePosition)
                 {
-                    slot.ItemCount = 25;
+                    slot.ItemCount = maxItemCount;
                 }
                 else
                 {
@@ -81,13 +82,15 @@ namespace terraria
             while (number > 0)
             {
                 inventory.Add(new InventorySlot()
-                { Item = item, ItemCount = (number >= 25 ? 25 : number),
+                {
+                    Item = item,
+                    ItemCount = (number >= maxItemCount ? maxItemCount : number),
                     SlotId = inventory.Count
                 });
 
-                number -= number >= 25 ? 25 : number;
+                number -= number >= maxItemCount ? maxItemCount : number;
             }
-           // Game.IsInventoryUpdate = true;
+            // Game.IsInventoryUpdate = true;
         }
 
         public void RemoveItem(Item item, int number = 1)
@@ -118,7 +121,7 @@ namespace terraria
                         inventory.Remove(inventory[i]);
                 }
             }
-           // Game.IsInventoryUpdate = true;
+            // Game.IsInventoryUpdate = true;
         }
 
         private bool ItemFromInventoryExists(Item item, int count = 1)

@@ -9,7 +9,7 @@ namespace terraria
         {
             Grass,
             Player,
-            Tree,
+            Wood,
             Rock,
             Air
         }
@@ -72,7 +72,7 @@ namespace terraria
                             map[x, y] = Block.Grass;
                             break;
                         case 'T':
-                            map[x, y] = Block.Tree;
+                            map[x, y] = Block.Wood;
                             break;
                         case 'R':
                             map[x, y] = Block.Rock;
