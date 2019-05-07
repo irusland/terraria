@@ -8,7 +8,7 @@ namespace terraria
 {
     class Inventory
     {
-        public enum SortItem
+        public enum TypeItem
         {
             Axe,
             Pick,
@@ -24,6 +24,7 @@ namespace terraria
             private int itemCount;
             private Item item;
             private int slotId;
+            public TypeItem
             public int ItemCount { get => itemCount; set => itemCount = value; }
             public Item Item { get => item; set => item = value; }
             public int SlotId { get => slotId; set => slotId = value; }
@@ -127,6 +128,11 @@ namespace terraria
         private bool ItemFromInventoryExists(Item item, int count = 1)
         {
             return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
+        }
+
+        private void GetInformationAboutWeapon()
+        {
+            return
         }
     }
 }
