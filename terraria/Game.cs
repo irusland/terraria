@@ -18,7 +18,7 @@ namespace terraria
         {
             private readonly int width;
             private readonly int height;
-            private readonly (int, int) intialPlayerPossition = (-1, -1);
+            private readonly Tuple<int, int> intialPlayerPossition = Tuple.Create(-1, -1);
 
             public MapCell[,] map;
 
@@ -64,7 +64,7 @@ namespace terraria
                 {
                     for (var y = 0; y < height; y++)
                     {
-                        switch(stringMap[y][x])
+                        switch (stringMap[y][x])
                         {
                             case 'P':
                                 map[x, y] = MapCell.Player;

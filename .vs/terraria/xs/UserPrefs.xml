@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{4EF55E68-7A9A-4371-9CA3-5D62869FFC9C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/MapTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/Game.cs">
     <Files>
       <File FileName="terraria/Program.cs" Line="6" Column="19" />
-      <File FileName="terraria/MapTests.cs" Line="5" Column="2" />
+      <File FileName="terraria/MapTests.cs" Line="67" Column="10" />
+      <File FileName="terraria/Game.cs" Line="21" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,7 +11,18 @@
           <Node name="terraria" expanded="True">
             <Node name="terraria" expanded="True">
               <Node name="References" expanded="True" />
-              <Node name="MapTests.cs" selected="True" />
+              <Node name="Game.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="terraria" expanded="True">
+            <Node name="terraria" expanded="True" selected="True">
+              <Node name="terraria" expanded="True">
+                <Node name="MapTests" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>
