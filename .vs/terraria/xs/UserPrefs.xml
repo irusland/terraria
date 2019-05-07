@@ -2,9 +2,10 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="terraria/Game.cs">
     <Files>
       <File FileName="terraria/MapTests.cs" Line="1" Column="1" />
-      <File FileName="terraria/Game.cs" Line="1" Column="1" />
-      <File FileName="terraria/ISlot.cs" Line="5" Column="17" />
-      <File FileName="terraria/Inventory.cs" Line="115" Column="27" />
+      <File FileName="terraria/Game.cs" Line="80" Column="14" />
+      <File FileName="terraria/Inventory.cs" Line="6" Column="1" />
+      <File FileName="terraria/Player.cs" Line="7" Column="29" />
+      <File FileName="terraria/World.cs" Line="18" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

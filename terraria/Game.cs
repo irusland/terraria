@@ -71,14 +71,18 @@ namespace terraria
         private void Dig()
         {
             var block = CheckWhatsAhead(world, world.player.position, Direction.Down);
-            //var selectedItem = inventory.SelectedItem;
-            if (block == World.Block.Rock)
+            var itemInHand = world.player.inventory.GetInformationAboutWeapon();
+            if (block == World.Block.Wood && itemInHand == Inventory.TypeItem.Axe)
             {
-                // Dig
+                // TODO 
             }
-            else
+            else if (block == World.Block.Grass && itemInHand == Inventory.TypeItem.Shovel)
             {
                 // Hit
+            }
+            else if (block == World.Block.Rock && itemInHand == Inventory.TypeItem.Pick)
+            {
+
             }
         }
 

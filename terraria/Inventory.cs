@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace terraria
 {
-    class Inventory
+    public class Inventory
     {
         public enum TypeItem
         {
@@ -133,7 +133,7 @@ namespace terraria
             return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
         }
 
-        private TypeItem GetInformationAboutWeapon()
+        public TypeItem GetInformationAboutWeapon()
         {
             if (IsSlotInArms)
                 return SlotInArms.typeItem;
