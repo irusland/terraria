@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ICreature.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="InventoryTests.cs" />
     <Compile Include="ISlot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

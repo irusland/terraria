@@ -8,7 +8,7 @@ namespace terraria
 {
     class Inventory
     {
-        public enum SortItem
+        public enum TypeItem
         {
             Axe,
             Pick,
@@ -23,6 +23,7 @@ namespace terraria
             private int itemCount;
             private Item item;
             private int slotId;
+            public TypeItem
             public int ItemCount { get => itemCount; set => itemCount = value; }
             public Item Item { get => item; set => item = value; }
             public int SlotId { get => slotId; set => slotId = value; }
@@ -81,13 +82,15 @@ namespace terraria
             while (number > 0)
             {
                 inventory.Add(new InventorySlot()
-                { Item = item, ItemCount = (number >= 25 ? 25 : number),
+                {
+                    Item = item,
+                    ItemCount = (number >= 25 ? 25 : number),
                     SlotId = inventory.Count
                 });
 
                 number -= number >= 25 ? 25 : number;
             }
-           // Game.IsInventoryUpdate = true;
+            // Game.IsInventoryUpdate = true;
         }
 
         public void RemoveItem(Item item, int number = 1)
@@ -124,6 +127,11 @@ namespace terraria
         private bool ItemFromInventoryExists(Item item, int count = 1)
         {
             return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
+        }
+
+        private void GetInformationAboutWeapon()
+        {
+            return 
         }
     }
 }
