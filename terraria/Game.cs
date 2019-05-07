@@ -68,7 +68,7 @@ namespace terraria
                         {
                             case 'P':
                                 map[x, y] = MapCell.Player;
-                                intialPlayerPossition = (x, y);
+                                intialPlayerPossition = Tuple.Create(x, y);
                                 break;
                             case 'G':
                                 map[x, y] = MapCell.Grass;
