@@ -1,0 +1,10 @@
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/bin/Debug/terraria.exe
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/bin/Debug/terraria.pdb
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/obj/x86/Debug/terraria.csprojAssemblyReference.cache
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/obj/x86/Debug/terraria.csproj.CoreCompileInputs.cache
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/obj/x86/Debug/terraria.exe
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/obj/x86/Debug/terraria.pdb
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/bin/Debug/nunit.framework.dll
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/bin/Debug/nunit.framework.pdb
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/bin/Debug/nunit.framework.xml
+/Users/ruslansirazhetdinov/Desktop/UrFU/uLearn/terraria/terraria/obj/x86/Debug/terraria.csproj.CopyComplete
