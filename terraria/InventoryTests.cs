@@ -11,10 +11,51 @@ namespace terraria
     [TestFixture()]
     class InventoryTests
     {
-        public void TestEmptyInventory()
+        public void TestAddItem()
         {
             var inventory = new List<InventorySlot>();
             var number = 1;
+            var Item = new Item(1, "Axe", "01");
+            
+        }
+
+        public void TestRemoveItem()
+        {
+            var inventory = new List<InventorySlot>();
+            var number = 1;
+            var Item = new Item(1, "Axe", "01");
+
+        }
+
+        public void TestAddZeroNumber()
+        {
+            var inventory = new List<InventorySlot>();
+            var number = 0;
+            var Item = new Item(1, "Axe", "01");
+
+        }
+
+        public void TestAddNegativeNumber()
+        {
+            var inventory = new List<InventorySlot>();
+            var number = -1;
+            var Item = new Item(1, "Axe", "01");
+
+        }
+
+
+        public void TestRemoveZeroNumber()
+        {
+            var inventory = new List<InventorySlot>();
+            var number = 0;
+            var Item = new Item(1, "Axe", "01");
+
+        }
+
+        public void TestRemoveNegativeNumber()
+        {
+            var inventory = new List<InventorySlot>();
+            var number = -1;
             var Item = new Item(1, "Axe", "01");
 
         }
