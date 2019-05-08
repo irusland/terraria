@@ -1,69 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace terraria
 {
     public class Inventory
     {
+        public Inventory() => inventory = new List<InventorySlot>();
+
         public enum TypeItem
         {
             Axe,
             Pick,
             Shovel,
             Shield,
-            Nothing,
             Wood,
             Rock,
             Dirt,
+            HealingSlave,
+            Nothing,
+            SpeedSlave
         }
 
-        private List<InventorySlot> inventory = new List<InventorySlot>();
+        private List<InventorySlot> inventory;
         private readonly int maxItemCount = 25;
         private InventorySlot SlotInArms = new InventorySlot();
         private readonly bool IsSlotInArms;
 
         public class InventorySlot
         {
-            private int itemCount;
-            private Item item;
-            private int slotId;
             public TypeItem typeItem;
-            public int ItemCount { get => itemCount; set => itemCount = value; }
-            public Item Item { get => item; set => item = value; }
-            public int SlotId { get => slotId; set => slotId = value; }
+            public int ItemCount { get; set; }
+            public Item Item { get; set; }
+            public int SlotId { get; set; }
         }
 
         public class Item
         {
-            private int id;
-            private string stringId;
-            private string name;
-            private string localizedName;
-            // private Image texture;
-            private Dictionary<string, double> itemProperties = new Dictionary<string, double>();
-
-            public Item(int id, string name, string strId)
-            {
-                this.id = id;
-                this.name = name;
-                this.stringId = strId;
-                LoadItem();
-            }
-
-            public void LoadItem()
-            {
-                this.localizedName = this.name;
-            }
-
-            public int Id { get => id; set => id = value; }
-            public string StringId { get => stringId; set => stringId = value; }
-            public string Name { get => name; set => name = value; }
-            public string LocalizedName { get => localizedName; set => localizedName = value; }
+            public TypeItem type;
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string LocalizedName { get; set; }
             // public Image Texture { get => Texture; set => Texture = value; }
-            public Dictionary<string, double> ItemProperties { get => itemProperties; set => itemProperties = value; }
+            public Dictionary<string, double> ItemProperties { get; set; } = new Dictionary<string, double>();
+
+            public Item(TypeItem type)
+            {
+                this.type = type;
+                //LoadItem();
+            }
+
+            //public void LoadItem()
+            //{
+            //    this.localizedName = this.name;
+            //}
         }
 
         public void AddItem(Item item, int number = 1)
@@ -102,7 +91,9 @@ namespace terraria
 
         public void RemoveItem(Item item, int number = 1)
         {
-            var slots = inventory.Where(p => (p.Item.Id == item.Id)).OrderBy(p => p.ItemCount).Select(p => p);
+            var slots = inventory.Where(p => (p.Item.Id == item.Id))
+                .OrderBy(p => p.ItemCount).Select(p => p);
+
             if (ItemFromInventoryExists(item, number))
             {
                 foreach (var slot in slots)
@@ -131,7 +122,7 @@ namespace terraria
             // Game.IsInventoryUpdate = true;
         }
 
-        private bool ItemFromInventoryExists(Item item, int count = 1)
+        public bool ItemFromInventoryExists(Item item, int count = 1)
         {
             return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
         }
