@@ -124,7 +124,8 @@ namespace terraria
 
         public bool ItemFromInventoryExists(Item item, int count = 1)
         {
-            return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
+            return inventory.Where(p => (p.Item.Id == item.Id))
+                .Sum(p => p.ItemCount) >= count;
         }
 
         public TypeItem GetInformationAboutWeapon()
