@@ -83,7 +83,7 @@ namespace terraria
             {
                 world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
                 world.map[destination.X, destination.Y] = World.Block.Player;
-                world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood), 1);
+                world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood));
             }
             else if (block == World.Block.Grass && itemInHand == Inventory.TypeItem.Shovel)
             {
