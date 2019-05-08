@@ -58,9 +58,11 @@ namespace terraria
         private void Jump()
         {
             var block = CheckWhatsAhead(world, world.player.position, Direction.Up);
+            var destination = GetNextPlayersPosition(world.player.position, Direction.Up);
             if (block == World.Block.Air)
             {
-                // Jump
+                world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
+                world.map[destination.X, destination.Y] = World.Block.Player;
             }
             else
             {
@@ -68,13 +70,20 @@ namespace terraria
             }
         }
 
+        private Point GetNextPlayersPosition(Point position, Direction direction) => 
+            new Point(position.X + directionToOffset[direction].X,
+                position.Y + directionToOffset[direction].Y);
+
         private void Dig()
         {
             var block = CheckWhatsAhead(world, world.player.position, Direction.Down);
             var itemInHand = world.player.inventory.GetInformationAboutWeapon();
+            var destination = GetNextPlayersPosition(world.player.position, Direction.Down);
             if (block == World.Block.Wood && itemInHand == Inventory.TypeItem.Axe)
             {
-                // TODO 
+                world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
+                world.map[destination.X, destination.Y] = World.Block.Player;
+                world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood), 1);
             }
             else if (block == World.Block.Grass && itemInHand == Inventory.TypeItem.Shovel)
             {

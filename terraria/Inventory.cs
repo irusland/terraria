@@ -14,7 +14,10 @@ namespace terraria
             Pick,
             Shovel,
             Shield,
-            Nothing
+            Nothing,
+            Wood,
+            Rock,
+            Dirt,
         }
 
         private List<InventorySlot> inventory = new List<InventorySlot>();
