@@ -14,7 +14,7 @@ namespace terraria
             inventory.AddItem(item);
             Assert.That(inventory.ItemFromInventoryExists(item), Is.True);
             
-//        }
+        }
 
         [Test]
         public void TestAddManyItems()
@@ -62,7 +62,7 @@ namespace terraria
                 || inventory.ItemFromInventoryExists(item2)
                 || inventory.ItemFromInventoryExists(item3), Is.False);
 
-//        }
+        }
 
         [Test]
         public void TestAddZeroNumber()
@@ -73,7 +73,7 @@ namespace terraria
             inventory.AddItem(item, number);
             Assert.That(inventory.ItemFromInventoryExists(item), Is.False);
 
-//        }
+        }
 
         [Test]
         public void TestAddNegativeNumber()
@@ -84,7 +84,7 @@ namespace terraria
             inventory.AddItem(item, number);
             Assert.That(inventory.ItemFromInventoryExists(item), Is.False);
 
-//        }
+        }
 
         [Test]
         public void TestRemoveZeroNumber()
@@ -105,6 +105,6 @@ namespace terraria
             inventory.RemoveItem(item, number);
             Assert.That(inventory.ItemFromInventoryExists(item, number), Is.True);
 
-//        }
-//    }
-//}
+        }
+    }
+}

@@ -126,10 +126,12 @@ namespace terraria
             // Game.IsInventoryUpdate = true;
         }
 
-        public void SelectItem (Inventory inventory, InventorySlot slot)
+        public Item SelectItem (Inventory inventory, Item item)
         {
-            if (inventory.inventory.Contains(slot))
-                SlotInArms = slot;
+            if (ItemFromInventoryExists(item))
+                return item;
+            return new Item(TypeItem.Nothing);
+
         }
 
         public bool ItemFromInventoryExists(Item item, int count = 1)
