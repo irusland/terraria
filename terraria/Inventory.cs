@@ -24,7 +24,11 @@ namespace terraria
         private List<InventorySlot> inventory;
         private readonly int maxItemCount = 25;
         private InventorySlot SlotInArms = new InventorySlot();
-        private readonly bool IsSlotInArms;
+
+        public bool CheckSlotInArms(InventorySlot SlotInArms)
+        {
+            return SlotInArms.typeItem != TypeItem.Nothing;
+        }
 
         public class InventorySlot
         {
@@ -122,14 +126,21 @@ namespace terraria
             // Game.IsInventoryUpdate = true;
         }
 
+        public void SelectItem (Inventory inventory, InventorySlot slot)
+        {
+            if (inventory.inventory.Contains(slot))
+                SlotInArms = slot;
+        }
+
         public bool ItemFromInventoryExists(Item item, int count = 1)
         {
-            return inventory.Where(p => (p.Item.Id == item.Id)).Sum(p => p.ItemCount) >= count;
+            return inventory.Where(p => (p.Item.Id == item.Id))
+                .Sum(p => p.ItemCount) >= count;
         }
 
         public TypeItem GetInformationAboutWeapon()
         {
-            if (IsSlotInArms)
+            if (CheckSlotInArms(SlotInArms))
                 return SlotInArms.typeItem;
             return TypeItem.Nothing;
         }
