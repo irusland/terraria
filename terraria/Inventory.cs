@@ -23,11 +23,11 @@ namespace terraria
 
         private List<InventorySlot> inventory;
         private readonly int maxItemCount = 25;
-        private InventorySlot SlotInArms = new InventorySlot();
+        private Item SlotInArms = new Item(TypeItem.Nothing);
 
-        public bool CheckSlotInArms(InventorySlot SlotInArms)
+        public bool CheckSlotInArms(Item SlotInArms)
         {
-            return SlotInArms.typeItem != TypeItem.Nothing;
+            return SlotInArms.type != TypeItem.Nothing;
         }
 
         public class InventorySlot
@@ -143,7 +143,7 @@ namespace terraria
         public TypeItem GetInformationAboutWeapon()
         {
             if (CheckSlotInArms(SlotInArms))
-                return SlotInArms.typeItem;
+                return SlotInArms.type;
             return TypeItem.Nothing;
         }
     }
