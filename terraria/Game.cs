@@ -7,7 +7,7 @@ namespace terraria
 {
     public class Game
     {
-        private readonly World world;
+        public readonly World world;
 
         public Game(World world)
         {
@@ -23,18 +23,20 @@ namespace terraria
         {
             switch (key)
             {
-                case Keys.Up | Keys.W | Keys.Space:
+                case Keys.Up: case Keys.W: case Keys.Space:
                     Jump();
                     break;
-                case Keys.Down | Keys.S:
+                case Keys.Down: case Keys.S:
                     Dig();
                     break;
-                case Keys.Left | Keys.A:
+                case Keys.Left: case Keys.A:
                     GoLeft();
                     break;
-                case Keys.Right | Keys.D:
+                case Keys.Right: case Keys.D:
                     GoRight();
                     break;
+                default:
+                    throw new FormatException("Key is not set");
             }
         }
 
@@ -48,8 +50,8 @@ namespace terraria
 
         private Dictionary<Direction, Point> directionToOffset = new Dictionary<Direction, Point>
         {
-            { Direction.Up, new Point(0, 1) },
-            { Direction.Down, new Point(0, -1) },
+            { Direction.Up, new Point(0, -1) },
+            { Direction.Down, new Point(0, 1) },
             { Direction.Right, new Point(1, 0) },
             { Direction.Left, new Point(-1, 0) }
 
@@ -66,13 +68,22 @@ namespace terraria
             }
             else
             {
-                // Hit
+                // TODO OnCollision();
             }
         }
 
         private Point GetNextPlayersPosition(Point position, Direction direction) => 
             new Point(position.X + directionToOffset[direction].X,
                 position.Y + directionToOffset[direction].Y);
+
+        private bool TryMovePlayer(Point initial, Point destination)
+        {
+            if (world.player.position != initial)
+                throw new Exception("You r trying to move not a player");
+            world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
+            world.map[destination.X, destination.Y] = World.Block.Player;
+            return true;
+        }
 
         private void Dig()
         {
@@ -81,28 +92,53 @@ namespace terraria
             var destination = GetNextPlayersPosition(world.player.position, Direction.Down);
             if (block == World.Block.Wood && itemInHand == Inventory.TypeItem.Axe)
             {
-                world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
-                world.map[destination.X, destination.Y] = World.Block.Player;
+                TryMovePlayer(world.player.position, destination);
                 world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood));
             }
             else if (block == World.Block.Grass && itemInHand == Inventory.TypeItem.Shovel)
             {
-                // Hit
+                TryMovePlayer(world.player.position, destination);
+                world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Dirt));
             }
             else if (block == World.Block.Rock && itemInHand == Inventory.TypeItem.Pick)
             {
-
+                TryMovePlayer(world.player.position, destination);
+                world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood));
+            }
+            else
+            {
+                Console.Write("You dont have a nessesery item in hand");
             }
         }
 
         private void GoLeft()
         {
-            // Left
+            var block = CheckWhatsAhead(world, world.player.position, Direction.Left);
+            var itemInHand = world.player.inventory.GetInformationAboutWeapon();
+            var destination = GetNextPlayersPosition(world.player.position, Direction.Left);
+            if (block == World.Block.Air)
+            {
+                TryMovePlayer(world.player.position, destination);
+            }
+            else
+            {
+                // TODO OnCollision
+            }
         }
 
         private void GoRight()
         {
-            // Right
+            var block = CheckWhatsAhead(world, world.player.position, Direction.Right);
+            var itemInHand = world.player.inventory.GetInformationAboutWeapon();
+            var destination = GetNextPlayersPosition(world.player.position, Direction.Right);
+            if (block == World.Block.Air)
+            {
+                TryMovePlayer(world.player.position, destination);
+            }
+            else
+            {
+                // TODO OnCollision
+            }
         }
 
         private World.Block CheckWhatsAhead(World world, Point initial, Direction direction)

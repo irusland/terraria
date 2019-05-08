@@ -12,8 +12,8 @@ namespace terraria
                 "GGG",
                 "RRR",
             };
-            var map = World.Create(stringMap);
-            var game = new Game(map);
+            var world = World.Create(stringMap);
+            var game = new Game(world);
             Application.Run(new GameWindow(game));
         }
     }

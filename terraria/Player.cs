@@ -10,6 +10,7 @@ namespace terraria
         public Player(Point position)
         {
             this.position = position;
+            this.inventory = new Inventory();
         }
     }
 }

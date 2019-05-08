@@ -71,7 +71,7 @@ namespace terraria
                         case 'G':
                             map[x, y] = Block.Grass;
                             break;
-                        case 'T':
+                        case 'W':
                             map[x, y] = Block.Wood;
                             break;
                         case 'R':
