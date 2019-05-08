@@ -35,9 +35,9 @@ namespace terraria
             };
             var world = World.Create(stringMap);
             var game = new Game(world);
-
-            game.world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Shovel));
-            //TODO game.world.player.inventory.ChooseItem();
+            var item = new Inventory.Item(Inventory.TypeItem.Shovel);
+            game.world.player.inventory.AddItem(item);
+            game.world.player.inventory.SelectItem(game.world.player.inventory, item);
             game.UpdateOnKeyPress(Keys.Down);
 
             Assert.That(game.world.player.position, Is.EqualTo(new Point(1, 2)));
