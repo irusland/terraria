@@ -1,20 +1,17 @@
 ﻿<Properties StartupConfiguration="{4EF55E68-7A9A-4371-9CA3-5D62869FFC9C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/Brain.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/GameWindow.cs">
     <Files>
-      <File FileName="terraria/Chraracters.cs" Line="57" Column="40" />
-      <File FileName="terraria/Inventory.cs" Line="19" Column="35" />
-      <File FileName="terraria/Game.cs" Line="10" Column="28" />
-      <File FileName="terraria/World.cs" Line="13" Column="20" />
-      <File FileName="terraria/GameWindow.cs" Line="74" Column="32" />
-      <File FileName="terraria/Brain.cs" Line="24" Column="62" />
+      <File FileName="terraria/GameWindow.cs" Line="36" Column="1" />
+      <File FileName="terraria/Program.cs" Line="12" Column="21" />
+      <File FileName="terraria/ICharacter.cs" Line="6" Column="16" />
+      <File FileName="terraria/Chraracters.cs" Line="41" Column="40" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="terraria" expanded="True">
             <Node name="terraria" expanded="True">
-              <Node name="References" expanded="True" />
-              <Node name="Brain.cs" selected="True" />
+              <Node name="GameWindow.cs" selected="True" />
             </Node>
           </Node>
         </State>

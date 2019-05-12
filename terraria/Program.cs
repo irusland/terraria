@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace terraria
@@ -8,7 +9,7 @@ namespace terraria
         public static void Main()
         {
             var stringMap = new[]{
-                "P  ",
+                "P W",
                 "GGG",
                 "RRR",
             };

@@ -9,7 +9,7 @@ namespace terraria
     public class Brain
     {
         public List<Animation> Animations = new List<Animation>();
-        public static readonly int CellSize = 1;
+        public static readonly int CellSize = 32;
 
         public void CollectWishes(Game game)
         {
@@ -32,7 +32,6 @@ namespace terraria
                     });
                 }
             }
-            Console.WriteLine(game.world);
         }
 
         public void ApplyWishes(Game game)

@@ -1,21 +1,24 @@
 ﻿<Properties StartupConfiguration="{610D5A45-09EB-4839-B6E5-D8601DB31897}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiggerTask.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Architecture/DiggerWindow.cs">
     <Files>
       <File FileName="Architecture/GameState.cs" Line="15" Column="13" />
-      <File FileName="Architecture/DiggerWindow.cs" Line="71" Column="44" />
-      <File FileName="Architecture/Program.cs" Line="12" Column="40" />
+      <File FileName="Architecture/Program.cs" Line="12" Column="43" />
       <File FileName="Game.cs" Line="38" Column="9" />
       <File FileName="Architecture/ICreature.cs" Line="7" Column="20" />
       <File FileName="Architecture/CreatureCommand.cs" Line="5" Column="27" />
-      <File FileName="DiggerTask.cs" Line="49" Column="13" />
+      <File FileName="DiggerTask.cs" Line="37" Column="27" />
+      <File FileName="Architecture/CreatureMapCreator.cs" Line="63" Column="29" />
+      <File FileName="Architecture/DiggerWindow.cs" Line="15" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Digger" expanded="True">
             <Node name="Digger" expanded="True">
-              <Node name="Architecture" expanded="True" />
-              <Node name="DiggerTask.cs" selected="True" />
+              <Node name="Architecture" expanded="True">
+                <Node name="DiggerWindow.cs" selected="True" />
+              </Node>
+              <Node name="Images" expanded="True" />
             </Node>
           </Node>
         </State>

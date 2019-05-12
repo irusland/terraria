@@ -27,7 +27,7 @@ namespace Digger
             if (imagesDirectory == null)
                 imagesDirectory = new DirectoryInfo("Images");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
-                bitmaps[e.Name] = (Bitmap) Image.FromFile(e.FullName);
+                bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
             var timer = new Timer();
             timer.Interval = 15;
             timer.Tick += TimerTick;

@@ -43,10 +43,7 @@ namespace terraria
             throw new System.NotImplementedException();
         }
 
-        public string GetImageFileName()
-        {
-            throw new System.NotImplementedException();
-        }
+        public string GetImageFileName() => "player.png";
 
         public override string ToString() => "P";
 
@@ -76,10 +73,7 @@ namespace terraria
             throw new System.NotImplementedException();
         }
 
-        public string GetImageFileName()
-        {
-            throw new System.NotImplementedException();
-        }
+        public string GetImageFileName() => "rock.png";
 
         public override string ToString() => "R";
     }
@@ -105,10 +99,7 @@ namespace terraria
             throw new System.NotImplementedException();
         }
 
-        public string GetImageFileName()
-        {
-            throw new System.NotImplementedException();
-        }
+        public string GetImageFileName() => "grass.png";
 
         public override string ToString() => "G";
     }
@@ -130,10 +121,7 @@ namespace terraria
             throw new System.NotImplementedException();
         }
 
-        public string GetImageFileName()
-        {
-            throw new System.NotImplementedException();
-        }
+        public string GetImageFileName() => "air.png";
 
         public override string ToString() => " ";
     }
@@ -159,10 +147,7 @@ namespace terraria
             throw new System.NotImplementedException();
         }
 
-        public string GetImageFileName()
-        {
-            throw new System.NotImplementedException();
-        }
+        public string GetImageFileName() => "wood.png";
 
         public override string ToString() => "W";
     }
