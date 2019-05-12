@@ -1,17 +1,20 @@
 ﻿<Properties StartupConfiguration="{4EF55E68-7A9A-4371-9CA3-5D62869FFC9C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/GameWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/IPlayer.cs">
     <Files>
-      <File FileName="terraria/GameWindow.cs" Line="36" Column="1" />
-      <File FileName="terraria/Program.cs" Line="12" Column="21" />
-      <File FileName="terraria/ICharacter.cs" Line="6" Column="16" />
-      <File FileName="terraria/Chraracters.cs" Line="41" Column="40" />
+      <File FileName="terraria/GameWindow.cs" Line="77" Column="25" />
+      <File FileName="terraria/Program.cs" Line="12" Column="4" />
+      <File FileName="terraria/Chraracters.cs" Line="8" Column="31" />
+      <File FileName="terraria/Brain.cs" Line="14" Column="30" />
+      <File FileName="terraria/Direction.cs" Line="13" Column="6" />
+      <File FileName="terraria/IPlayer.cs" Line="5" Column="22" />
+      <File FileName="terraria/ICharacter.cs" Line="4" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="terraria" expanded="True">
             <Node name="terraria" expanded="True">
-              <Node name="GameWindow.cs" selected="True" />
+              <Node name="IPlayer.cs" selected="True" />
             </Node>
           </Node>
         </State>

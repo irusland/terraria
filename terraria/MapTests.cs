@@ -9,10 +9,9 @@ namespace terraria
         [Test()]
         public void TestMapCreation()
         {
-            var strMap = new[]{
-                "P ",
-                "RR"
-            };
+            var strMap = @"
+P 
+RR";
 
             var map = World.Create(strMap).map;
 
@@ -27,9 +26,7 @@ namespace terraria
         [Test()]
         public void TestMapOneByOne()
         {
-            var strMap = new[]{
-                "P"
-            };
+            var strMap = @"P";
 
             var map = World.Create(strMap).map;
 
@@ -41,9 +38,7 @@ namespace terraria
         [Test()]
         public void TestMapOneByZero()
         {
-            var strMap = new[]{
-                ""
-            };
+            var strMap = @"";
 
             var map = World.Create(strMap).map;
 
@@ -52,23 +47,11 @@ namespace terraria
         }
 
         [Test()]
-        public void TestMapZeroByZero()
-        {
-            var strMap = new string[0];
-
-            var map = World.Create(strMap).map;
-
-            Assert.That(map.GetLength(0), Is.EqualTo(0));
-            Assert.That(map.GetLength(1), Is.EqualTo(0));
-        }
-
-        [Test()]
         public void TestMapCreationFailure()
         {
-            var strMap = new[]{
-                "F ",
-                "  "
-            };
+            var strMap = @"
+F 
+  ";
 
             try
             {

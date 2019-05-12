@@ -21,7 +21,7 @@ namespace terraria
                     var character = game.world.map[x, y];
                     if (character == null) continue;
                     var wish = character.GetWish(x, y, game);
-                    Console.WriteLine($"{character} {wish}");
+                    //Console.WriteLine($"{character} {wish}");
                     Animations.Add(
                     new Animation
                     {
@@ -87,113 +87,6 @@ namespace terraria
                 characters[x, y].Add(next);
             }
             return characters;
-        }
-
-        private enum Direction
-        {
-            Up,
-            Down,
-            Right,
-            Left
-        }
-
-        private Dictionary<Direction, Point> directionToOffset = new Dictionary<Direction, Point>
-        {
-            { Direction.Up, new Point(0, -1) },
-            { Direction.Down, new Point(0, 1) },
-            { Direction.Right, new Point(1, 0) },
-            { Direction.Left, new Point(-1, 0) }
-
-        };
-
-        private void Jump()
-        {
-            //var block = CheckWhatsAhead(world, world.player.position, Direction.Up);
-            //var destination = GetNextPlayersPosition(world.player.position, Direction.Up);
-            //if (block == World.Block.Air)
-            //{
-            //    world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
-            //    world.map[destination.X, destination.Y] = World.Block.Player;
-            //}
-            //else
-            //{
-            //    // TODO OnCollision();
-            //}
-        }
-
-        private Point GetNextPlayersPosition(Point position, Direction direction) =>
-            new Point(position.X + directionToOffset[direction].X,
-                position.Y + directionToOffset[direction].Y);
-
-        private bool TryMovePlayer(Point initial, Point destination)
-        {
-            //if (world.player.position != initial)
-            //    throw new Exception("You r trying to move not a player");
-            //world.map[world.player.position.X, world.player.position.Y] = World.Block.Air;
-            //world.map[destination.X, destination.Y] = World.Block.Player;
-            return true;
-        }
-
-        private void Dig()
-        {
-            //var block = CheckWhatsAhead(world, world.player.position, Direction.Down);
-            //var itemInHand = world.player.inventory.GetInformationAboutWeapon();
-            //var destination = GetNextPlayersPosition(world.player.position, Direction.Down);
-            //if (block == World.Block.Wood && itemInHand == Inventory.TypeItem.Axe)
-            //{
-            //    TryMovePlayer(world.player.position, destination);
-            //    world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood));
-            //}
-            //else if (block == World.Block.Grass && itemInHand == Inventory.TypeItem.Shovel)
-            //{
-            //    TryMovePlayer(world.player.position, destination);
-            //    world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Dirt));
-            //}
-            //else if (block == World.Block.Rock && itemInHand == Inventory.TypeItem.Pick)
-            //{
-            //    TryMovePlayer(world.player.position, destination);
-            //    world.player.inventory.AddItem(new Inventory.Item(Inventory.TypeItem.Wood));
-            //}
-            //else
-            //{
-            //    Console.Write("You dont have a nessesery item in hand");
-            //}
-        }
-
-        private void GoLeft()
-        {
-            //var block = CheckWhatsAhead(world, world.player.position, Direction.Left);
-            //var itemInHand = world.player.inventory.GetInformationAboutWeapon();
-            //var destination = GetNextPlayersPosition(world.player.position, Direction.Left);
-            //if (block == World.Block.Air)
-            //{
-            //    TryMovePlayer(world.player.position, destination);
-            //}
-            //else
-            //{
-            //    // TODO OnCollision
-            //}
-        }
-
-        private void GoRight()
-        {
-            //var block = CheckWhatsAhead(world, world.player.position, Direction.Right);
-            //var itemInHand = world.player.inventory.GetInformationAboutWeapon();
-            //var destination = GetNextPlayersPosition(world.player.position, Direction.Right);
-            //if (block == World.Block.Air)
-            //{
-            //    TryMovePlayer(world.player.position, destination);
-            //}
-            //else
-            //{
-            //    // TODO OnCollision
-            //}
-        }
-
-        private ICharacter CheckWhatsAhead(World world, Point initial, Direction direction)
-        {
-            var offset = directionToOffset[direction];
-            return world.map[initial.X + offset.X, initial.Y + offset.Y];
         }
     }
 }

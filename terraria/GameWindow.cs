@@ -56,16 +56,51 @@ namespace terraria
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.TranslateTransform(0, Brain.CellSize);
+            //e.Graphics.TranslateTransform(0, Brain.CellSize);
             e.Graphics.FillRectangle(
-                Brushes.Black, 0, 0, Brain.CellSize * game.MapWidth,
-                Brain.CellSize * game.MapHeight);
+            Brushes.Green, 0, 0, Brain.CellSize * game.MapWidth,
+            Brain.CellSize * game.MapHeight);
             foreach (var animation in gameBrain.Animations)
             {
                 e.Graphics.DrawImage(bitmaps[animation.Character.GetImageFileName()], animation.Location);
             }
             e.Graphics.ResetTransform();
-            //e.Graphics.DrawString(game.Scores.ToString(), new Font("Arial", 16), Brushes.Green, 0, 0);
+            //e.Graphics.DrawString(game.world.ToString(), new Font("Arial", 16), Brushes.Green, 0, 0);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            var mousePosition = e.Location;
+            var playerPosition = GetPlayerPosition();
+            var mouseOffsetFromPlayer = GetMouseOffsetFromPlayer(playerPosition, mousePosition);
+            var player = (Player)game.world.map[playerPosition.X, playerPosition.Y];
+            var x = mouseOffsetFromPlayer.X;
+            var y = mouseOffsetFromPlayer.Y;
+            if (y - x <= 0 && y + x >= 0)
+                player.SetDirection(Direction.Right);
+            if (y - x > 0 && y + x < 0)
+                player.SetDirection(Direction.Left);
+            if (y - x <= 0 && y + x < 0)
+                player.SetDirection(Direction.Up);
+            if (y - x > 0 && y + x >= 0)
+                player.SetDirection(Direction.Down);
+        }
+
+        private Point GetMouseOffsetFromPlayer(Point player, Point mouse) =>
+            new Point(mouse.X - player.X * Brain.CellSize - Brain.CellSize / 2,
+            mouse.Y - player.Y * Brain.CellSize - Brain.CellSize / 2);
+
+        private Point GetPlayerPosition()
+        {
+            for (var y = 0; y < game.MapHeight; y++)
+            {
+                for (var x = 0; x < game.MapWidth; x++)
+                {
+                    if (game.world.map[x, y] is Player)
+                        return new Point(x, y);
+                }
+            }
+            return new Point(-1, -1);
         }
 
         private void TimerTick(object sender, EventArgs args)
@@ -73,8 +108,8 @@ namespace terraria
             if (tickCount == 0)
             {
                 gameBrain.CollectWishes(game);
-                Console.WriteLine($"Updated");
-                Console.WriteLine($"{game.world}\t{game.MapWidth}x{game.MapHeight}");
+                //Console.WriteLine($"Updated");
+                //Console.WriteLine($"{game.world}\t{game.MapWidth}x{game.MapHeight}");
             }
             foreach (var animation in gameBrain.Animations)
                 animation.Location = new Point(animation.Location.X + 4 * animation.Wish.XOffset,

@@ -26,13 +26,16 @@ namespace terraria
             return builder.ToString();
         }
 
-        private World(string[] stringMap)
+        private World(string stringMap)
         {
-            var height = stringMap.Length;
+            var separator = "\n";
+            var lines = stringMap.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+
+            var height = lines.Length;
             var width = 0;
             try
             {
-                width = stringMap[0].Length;
+                width = lines[0].Length;
             }
             catch
             {
@@ -44,7 +47,7 @@ namespace terraria
             {
                 for (var y = 0; y < height; y++)
                 {
-                    switch (stringMap[y][x])
+                    switch (lines[y][x])
                     {
                         case 'P':
                             map[x, y] = new Player();
@@ -62,13 +65,13 @@ namespace terraria
                             map[x, y] = new Air();
                             break;
                         default:
-                            throw new FormatException($"{stringMap[y][x]} is unknown cell type");
+                            throw new FormatException($"{lines[y][x]} is unknown cell type");
                     }
                 }
             }
         }
 
-        public static World Create(string[] stringMap)
+        public static World Create(string stringMap)
         {
             return new World(stringMap);
         }

@@ -8,11 +8,10 @@ namespace terraria
     {
         public static void Main()
         {
-            var stringMap = new[]{
-                "P W",
-                "GGG",
-                "RRR",
-            };
+            var stringMap = @"
+P W
+GGG
+RRR";
             var world = World.Create(stringMap);
             var game = new Game(world);
             Application.Run(new GameWindow(game));

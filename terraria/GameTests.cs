@@ -11,11 +11,10 @@ namespace terraria
         [Test()]
         public void TestJump()
         {
-            var stringMap = new[]{
-                "   ",
-                " P ",
-                "GGG",
-            };
+            var stringMap = @"
+   
+ P 
+GGG";
             var world = World.Create(stringMap);
             var game = new Game(world);
 
@@ -28,11 +27,10 @@ namespace terraria
         [Test()]
         public void TestDigGrass()
         {
-            var stringMap = new[]{
-                "   ",
-                " P ",
-                "GGG",
-            };
+            var stringMap = @"
+   
+ P 
+GGG";
             var world = World.Create(stringMap);
             var game = new Game(world);
             var item = new Inventory.Item(Inventory.TypeItem.Shovel);
@@ -47,11 +45,10 @@ namespace terraria
         [Test()]
         public void TestDigRock()
         {
-            var stringMap = new[]{
-                "   ",
-                " P ",
-                "RRR",
-            };
+            var stringMap = @"
+   
+ P 
+RRR";
             var world = World.Create(stringMap);
             var game = new Game(world);
 
@@ -66,11 +63,10 @@ namespace terraria
         [Test()]
         public void TestDigWood()
         {
-            var stringMap = new[]{
-                "   ",
-                " P ",
-                "TTT",
-            };
+            var stringMap = @"
+   
+ P 
+TTT";
             var world = World.Create(stringMap);
             var game = new Game(world);
 

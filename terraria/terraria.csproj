@@ -55,6 +55,8 @@
     <Compile Include="Wish.cs" />
     <Compile Include="Brain.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="IPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

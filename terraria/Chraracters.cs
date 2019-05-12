@@ -1,29 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace terraria
 {
-    public class Player : ICharacter
+    public class Player : ICharacter, IPlayer
     {
+        //Direction IPlayer.Direction { get; set; }
+
         public Wish GetWish(int x, int y, Game game)
         {
             var command = new Wish { XOffset = 0, YOffset = 0 };
             switch (game.KeyPressed)
             {
                 case Keys.Left:
+                case Keys.A:
                     if (x - 1 >= 0)
                         command.XOffset = -1;
                     break;
                 case Keys.Right:
+                case Keys.D:
                     if (x + 1 < game.world.map.GetLength(0))
                         command.XOffset = 1;
                     break;
                 case Keys.Up:
+                case Keys.W:
                     if (y - 1 >= 0)
                         command.YOffset = -1;
                     break;
                 case Keys.Down:
+                case Keys.S:
                     if (y + 1 < game.world.map.GetLength(1))
                         command.YOffset = 1;
                     break;
@@ -43,9 +50,36 @@ namespace terraria
             throw new System.NotImplementedException();
         }
 
-        public string GetImageFileName() => "player.png";
+        public string GetImageFileName()
+        {
+            switch (direction)
+            {
+                case Direction.Down:
+                    return "player_front.png";
+                case Direction.Up:
+                    return "player_back.png";
+                case Direction.Left:
+                    return "player_left.png";
+                case Direction.Right:
+                    return "player_right.png";
+                default:
+                    throw new Exception($"{direction} is incorrect");
+            }
+        }
 
         public override string ToString() => "P";
+
+        private Direction direction = Direction.Down;
+
+        public Direction GetDirection()
+        {
+            return direction;
+        }
+
+        public void SetDirection(Direction dir)
+        {
+            direction = dir;
+        }
 
         // TODO add some inventory logic for fight
         private static readonly HashSet<ICharacter> deadlyCharacters = new HashSet<ICharacter> { new Player() };

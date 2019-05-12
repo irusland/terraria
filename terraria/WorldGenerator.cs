@@ -8,18 +8,17 @@ namespace terraria
     {
         public World Generate(int width, int height)
         {
-            var stringMap = new[] {
-                ""
-            };
-            var stringLineMap = new StringBuilder();
+            var mapBuilder = new StringBuilder();
+
             for (var x = 0; x < width; x++)
             {
                 for (var y = 0; y < height; y++)
                 {
-                    // TODO Generator
+                    mapBuilder.Append("G");
                 }
+                mapBuilder.Append("\n");
             }
-            return World.Create(stringMap);
+            return World.Create(mapBuilder.ToString());
         }
     }
 }
