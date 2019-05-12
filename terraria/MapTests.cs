@@ -18,10 +18,10 @@ namespace terraria
 
             Assert.That(map.GetLength(0), Is.EqualTo(2));
             Assert.That(map.GetLength(1), Is.EqualTo(2));
-            Assert.That(map[0, 0], Is.EqualTo(World.Block.Player));
-            Assert.That(map[1, 0], Is.EqualTo(World.Block.Air));
-            Assert.That(map[0, 1], Is.EqualTo(World.Block.Rock));
-            Assert.That(map[1, 1], Is.EqualTo(World.Block.Rock));
+            Assert.That(map[0, 0], Is.EqualTo(new Player()));
+            Assert.That(map[1, 0], Is.EqualTo(new Air()));
+            Assert.That(map[0, 1], Is.EqualTo(new Rock()));
+            Assert.That(map[1, 1], Is.EqualTo(new Rock()));
         }
 
         [Test()]
@@ -35,7 +35,7 @@ namespace terraria
 
             Assert.That(map.GetLength(0), Is.EqualTo(1));
             Assert.That(map.GetLength(1), Is.EqualTo(1));
-            Assert.That(map[0, 0], Is.EqualTo(World.Block.Player));
+            Assert.That(map[0, 0], Is.EqualTo(new Player()));
         }
 
         [Test()]

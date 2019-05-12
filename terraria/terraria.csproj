@@ -39,7 +39,6 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICreature.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="InventoryTests.cs" />
     <Compile Include="ISlot.cs" />
@@ -49,9 +48,13 @@
     <Compile Include="MapTests.cs" />
     <Compile Include="GameWindow.cs" />
     <Compile Include="World.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Chraracters.cs" />
     <Compile Include="GameTests.cs" />
     <Compile Include="WorldGenerator.cs" />
+    <Compile Include="ICharacter.cs" />
+    <Compile Include="Wish.cs" />
+    <Compile Include="Brain.cs" />
+    <Compile Include="Animation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

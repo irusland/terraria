@@ -40,3 +40,4 @@ C:/Users/eksto/Documents/GitHub/terraria/terraria/obj/x86/Debug/terraria.pdb
 /Users/ruslansirazhetdinov/Documents/GitHub/terraria/terraria/bin/Debug/nunit.framework.pdb
 /Users/ruslansirazhetdinov/Documents/GitHub/terraria/terraria/bin/Debug/nunit.framework.xml
 /Users/ruslansirazhetdinov/Documents/GitHub/terraria/terraria/obj/x86/Debug/terraria.csproj.CopyComplete
+/Users/ruslan/Documents/GitHub/terraria/terraria/bin/Debug/terraria.exe.config

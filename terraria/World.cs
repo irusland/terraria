@@ -1,53 +1,35 @@
 ﻿using System;
 using System.Drawing;
+using System.Text;
 
 namespace terraria
 {
     public class World
     {
-        public enum Block
-        {
-            Grass,
-            Player,
-            Wood,
-            Rock,
-            Air
-        }
-
-        public readonly int width;
-        public readonly int height;
+        public int MapWidth => map.GetLength(0);
+        public int MapHeight => map.GetLength(1);
         public readonly Player player;
 
-        public Block[,] map;
+        public ICharacter[,] map;
 
-        public void PrintMap()
+        public override string ToString()
         {
-            for (var x = 0; x < width; x++)
+            var builder = new StringBuilder();
+            for (var y = 0; y < MapHeight; y++)
             {
-                for (var y = 0; y < height; y++)
+                for (var x = 0; x < MapWidth; x++)
                 {
-                    Console.Write(map[x, y]);
+                    builder.Append(map[x, y]);
                 }
-                Console.WriteLine();
+                builder.Append("\n");
             }
-        }
-
-        private World(int w, int h)
-        {
-            width = w;
-            height = h;
-            map = new Block[width, height];
-        }
-
-        private World(Block[,] blocks)
-        {
-            map = blocks;
+            return builder.ToString();
         }
 
         private World(string[] stringMap)
         {
-            height = stringMap.Length;
-            width = 0;
+            var height = stringMap.Length;
+            var width = 0;
             try
             {
                 width = stringMap[0].Length;
@@ -56,7 +38,7 @@ namespace terraria
             {
 
             }
-            map = new Block[width, height];
+            map = new ICharacter[width, height];
 
             for (var x = 0; x < width; x++)
             {
@@ -65,20 +47,19 @@ namespace terraria
                     switch (stringMap[y][x])
                     {
                         case 'P':
-                            map[x, y] = Block.Player;
-                            player = new Player(new Point(x, y));
+                            map[x, y] = new Player();
                             break;
                         case 'G':
-                            map[x, y] = Block.Grass;
+                            map[x, y] = new Grass();
                             break;
                         case 'W':
-                            map[x, y] = Block.Wood;
+                            map[x, y] = new Wood();
                             break;
                         case 'R':
-                            map[x, y] = Block.Rock;
+                            map[x, y] = new Rock();
                             break;
                         case ' ':
-                            map[x, y] = Block.Air;
+                            map[x, y] = new Air();
                             break;
                         default:
                             throw new FormatException($"{stringMap[y][x]} is unknown cell type");

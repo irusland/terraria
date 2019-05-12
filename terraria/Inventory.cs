@@ -3,6 +3,22 @@ using System.Linq;
 
 namespace terraria
 {
+    public interface IInventoryItem
+    {
+        // Объекты на карте и в интвентаре будут одини и теми же
+        // Например камень он будет ICharacter и IInventoryItem
+        // Будет реализовать 2 интерфеса, для меня (Карты) и для тебя (Инвентаря)
+        // Накидай себе нужных позиций в интерфейс, которыми будешь пользоваться
+        // 
+        // От тебя мне нужно чтобы в инвентарь состоял из объектов реализующих IInventoryItem
+        // (В том числе и тех, которые есть на карте, т.е. : ICharacter)
+        // Давай сменим логику и будем добавлять блоки и предметы как я сделал (загляни в Characters.cs)
+        // то есть у нас 
+        // НЕ будет енумов и всяких айдишников 
+        //  А будут классы предметов реализующих нужный тебе интерфейс, а которые еще и на карте могут появится
+        // реализуют мой интерфейс
+    }
+
     public class Inventory
     {
         public Inventory() => inventory = new List<InventorySlot>();
@@ -126,7 +142,7 @@ namespace terraria
             // Game.IsInventoryUpdate = true;
         }
 
-        public Item SelectItem (Inventory inventory, Item item)
+        public Item SelectItem(Inventory inventory, Item item)
         {
             if (ItemFromInventoryExists(item))
                 return item;
