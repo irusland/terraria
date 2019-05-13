@@ -33,7 +33,7 @@ GGG";
 GGG";
             var world = World.Create(stringMap);
             var game = new Game(world);
-            var item = new Inventory.Item(Inventory.TypeItem.Shovel);
+            //var item = new Inventory.Item(Inventory.TypeItem.Shovel);
             //game.world.player.inventory.AddItem(item);
             //game.world.player.inventory.SelectItem(game.world.player.inventory, item);
             //game.UpdateOnKeyPress(Keys.Down);

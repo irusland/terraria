@@ -18,8 +18,17 @@ GGGGGGW
 GGGGGGW
 GGGGGGW
 RRRGGGW";
-            var world = World.Create(stringMap);
+
+            var stringInfo = @"
+Axe 1
+Shovel 1";
+            var world = World.CreateWithInfo(stringMap, stringInfo);
             var game = new Game(world);
+
+            //todo
+            var p = (Player)world.map[0, 0];
+            var inv = p.Inventory;
+            Console.WriteLine(inv);
             Application.Run(new GameWindow(game));
         }
     }

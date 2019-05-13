@@ -98,6 +98,7 @@ namespace terraria
         }
 
         public Direction Direction { get; set; }
+        public Inventory Inventory { get; set; }
 
         // TODO add some inventory logic for fight
         private static readonly HashSet<ICharacter> deadlyCharacters = new HashSet<ICharacter> { new Player() };

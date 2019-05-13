@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace terraria
 {
@@ -21,146 +23,91 @@ namespace terraria
 
     public class Inventory
     {
-        public Inventory() => inventory = new List<InventorySlot>();
-
-        public enum TypeItem
+        public class Slot
         {
-            Axe,
-            Pick,
-            Shovel,
-            Shield,
-            Wood,
-            Rock,
-            Dirt,
-            HealingSlave,
-            Nothing,
-            SpeedSlave
-        }
+            public IInventoryItem Item;
+            public int Amount;
 
-        private List<InventorySlot> inventory;
-        private readonly int maxItemCount = 25;
-        private Item SlotInArms = new Item(TypeItem.Nothing);
-
-        public bool CheckSlotInArms(Item SlotInArms)
-        {
-            return SlotInArms.type != TypeItem.Nothing;
-        }
-
-        public class InventorySlot
-        {
-            public TypeItem typeItem;
-            public int ItemCount { get; set; }
-            public Item Item { get; set; }
-            public int SlotId { get; set; }
-        }
-
-        public class Item
-        {
-            public TypeItem type;
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string LocalizedName { get; set; }
-            // public Image Texture { get => Texture; set => Texture = value; }
-            public Dictionary<string, double> ItemProperties { get; set; } = new Dictionary<string, double>();
-
-            public Item(TypeItem type)
+            public Slot(IInventoryItem item, int amount)
             {
-                this.type = type;
-                //LoadItem();
+                Item = item;
+                Amount = amount;
             }
-
-            //public void LoadItem()
-            //{
-            //    this.localizedName = this.name;
-            //}
         }
 
-        public void AddItem(Item item, int number = 1)
-        {
-            var slots = inventory.Where(p => (p.Item == item) && (p.ItemCount < maxItemCount)).Select(p => p);
-            foreach (var slot in slots)
-            {
-                var freePosition = maxItemCount - slot.ItemCount;
+        private const int maxSize = 10;
+        private readonly Slot[] inventory = new Slot[maxSize];
+        private readonly Stack<int> freeIndexes = new Stack<int>();
 
-                if (number > freePosition)
-                {
-                    slot.ItemCount = maxItemCount;
-                }
+        public Inventory()
+        {
+            for (var i = 0; i < 10; i++)
+                freeIndexes.Push(i);
+        }
+
+        public Slot GetSelectedSlot => inventory[selected];
+        public int selected
+        {
+            get { return selected; }
+            set
+            {
+                if (value < maxSize && value >= 0)
+                    selected = value;
                 else
-                {
-                    slot.ItemCount += number;
-                }
-
-                number -= freePosition;
-                if (number <= 0)
-                    break;
+                    throw new IndexOutOfRangeException();
             }
-            while (number > 0)
+        }
+
+
+        public override string ToString()
+        {
+            return inventory.ToString();
+        }
+
+        public bool TryPush(IInventoryItem item, int count)
+        {
+            if (!TryGetItemIndex(item, out var index))
             {
-                inventory.Add(new InventorySlot()
-                {
-                    Item = item,
-                    ItemCount = (number >= maxItemCount ? maxItemCount : number),
-                    SlotId = inventory.Count
-                });
-
-                number -= number >= maxItemCount ? maxItemCount : number;
+                if (freeIndexes.Any())
+                    return false;
+                index = freeIndexes.Pop();
+                inventory[index] = new Slot(item, count);
+                return true;
             }
-            // Game.IsInventoryUpdate = true;
+            inventory[index].Amount += count;
+            return true;
         }
 
-        public void RemoveItem(Item item, int number = 1)
+        public bool TryGetItemIndex(IInventoryItem item, out int index)
         {
-            var slots = inventory.Where(p => (p.Item.Id == item.Id))
-                .OrderBy(p => p.ItemCount).Select(p => p);
-
-            if (ItemFromInventoryExists(item, number))
+            for (var i = 0; i < inventory.Length; i++)
             {
-                foreach (var slot in slots)
+                var element = inventory[i];
+                if (element != null)
                 {
-                    var count = slot.ItemCount;
-                    if (number > slot.ItemCount)
+                    var type = element.Item.GetType().Name;
+                    if (item.GetType().Name == type)
                     {
-                        slot.ItemCount = 0;
+                        index = i;
+                        return true;
                     }
-                    else
-                    {
-                        slot.ItemCount -= number;
-                    }
-
-                    number -= count;
-                    if (number <= 0)
-                        break;
-                }
-
-                for (var i = 0; i < inventory.Count; i++)
-                {
-                    if (inventory[i].ItemCount == 0)
-                        inventory.Remove(inventory[i]);
                 }
             }
-            // Game.IsInventoryUpdate = true;
+            index = -1;
+            return false;
         }
 
-        public Item SelectItem(Inventory inventory, Item item)
+        public bool TryPopItem(IInventoryItem item, out IInventoryItem popItem, out int itemAmount)
         {
-            if (ItemFromInventoryExists(item))
-                return item;
-            return new Item(TypeItem.Nothing);
-
-        }
-
-        public bool ItemFromInventoryExists(Item item, int count = 1)
-        {
-            return inventory.Where(p => (p.Item.Id == item.Id))
-                .Sum(p => p.ItemCount) >= count;
-        }
-
-        public TypeItem GetInformationAboutWeapon()
-        {
-            if (CheckSlotInArms(SlotInArms))
-                return SlotInArms.type;
-            return TypeItem.Nothing;
+            if (TryGetItemIndex(item, out var index))
+            {
+                popItem = inventory[index].Item;
+                itemAmount = inventory[index].Amount;
+                return true;
+            }
+            itemAmount = 0;
+            popItem = null;
+            return false;
         }
     }
 }

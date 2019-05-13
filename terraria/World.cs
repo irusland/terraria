@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
@@ -8,7 +9,6 @@ namespace terraria
     {
         public int MapWidth => map.GetLength(0);
         public int MapHeight => map.GetLength(1);
-        public readonly Player player;
         public ICharacter[,] map;
 
         public bool IsInBounds(int x, int y) => x < MapWidth && x >= 0 && y < MapHeight && y >= 0;
@@ -77,5 +77,62 @@ namespace terraria
         {
             return new World(stringMap);
         }
+
+        public static World CreateWithInfo(string stringMap, string stringInfo)
+        {
+            var world = new World(stringMap);
+
+            var slots = ParseInfo(stringInfo);
+            var playerPos = GetPlayerPos(world);
+            var character = world.map[playerPos.X, playerPos.Y];
+            if (character is Player player)
+            {
+                player.Inventory = new Inventory();
+                foreach (var slot in slots)
+                {
+                    player.Inventory.TryPush(slot.Item, slot.Amount);
+                }
+            }
+            else
+            {
+                throw new Exception("Not a player");
+            }
+            return world;
+        }
+
+        private static Point GetPlayerPos(World world)
+        {
+            for (var x = 0; x < world.MapWidth; x++)
+            {
+                for (var y = 0; y < world.MapHeight; y++)
+                {
+                    if (world.map[x, y] is Player)
+                        return new Point(x, y);
+                }
+            }
+            return new Point(-1, -1);
+        }
+
+        private static IEnumerable<Inventory.Slot> ParseInfo(string stringInfo)
+        {
+            var separator = "\n";
+            var lines = stringInfo.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var line in lines)
+            {
+                var info = line.Split();
+                var itemStr = info[0];
+                var amountStr = info[1];
+                var itemConstructor = itemFromStr[itemStr];
+                yield return new Inventory.Slot(itemConstructor(), int.Parse(amountStr));
+            }
+        }
+
+        private static Dictionary<string, Func<IInventoryItem>> itemFromStr = new Dictionary<string, Func<IInventoryItem>>
+        {
+            {"Axe", () => new Axe()},
+            {"Pick", () => new Pick()},
+            {"Shovel", () => new Shovel()},
+        };
     }
 }
