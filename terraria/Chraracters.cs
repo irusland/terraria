@@ -7,36 +7,59 @@ namespace terraria
 {
     public class Player : ICharacter, IPlayer
     {
-        //Direction IPlayer.Direction { get; set; }
-
         public Wish GetWish(int x, int y, Game game)
         {
-            var command = new Wish { XOffset = 0, YOffset = 0 };
+            var wish = new Wish { XOffset = 0, YOffset = 0 };
             switch (game.KeyPressed)
             {
                 case Keys.Left:
                 case Keys.A:
                     if (x - 1 >= 0)
-                        command.XOffset = -1;
+                        wish.XOffset = -1;
                     break;
                 case Keys.Right:
                 case Keys.D:
                     if (x + 1 < game.world.map.GetLength(0))
-                        command.XOffset = 1;
+                        wish.XOffset = 1;
                     break;
                 case Keys.Up:
                 case Keys.W:
                     if (y - 1 >= 0)
-                        command.YOffset = -1;
+                        wish.YOffset = -1;
                     break;
                 case Keys.Down:
                 case Keys.S:
                     if (y + 1 < game.world.map.GetLength(1))
-                        command.YOffset = 1;
+                        wish.YOffset = 1;
                     break;
             }
-            return command;
+
+            var mouseOffset = GetMouseOffset(new Point(x, y), game.MousePosition);
+            var mx = mouseOffset.X;
+            var my = mouseOffset.Y;
+            if (my - mx <= 0 && my + mx >= 0)
+                Direction = Direction.Right;
+            if (my - mx > 0 && my + mx < 0)
+                Direction = Direction.Left;
+            if (my - mx <= 0 && my + mx < 0)
+                Direction = Direction.Up;
+            if (my - mx > 0 && my + mx >= 0)
+                Direction = Direction.Down;
+
+            if (game.MouseClicked == MouseButtons.Left)
+            {
+                wish.BreakBlockOnPossition = MousePositionToMapCell(game.MousePosition);
+            }
+            return wish;
         }
+
+        private Point MousePositionToMapCell(Point mousePosition) =>
+            new Point(mousePosition.X / Brain.CellSize,
+            mousePosition.Y / Brain.CellSize);
+
+        public Point GetMouseOffset(Point player, Point mouse) =>
+            new Point(mouse.X - player.X * Brain.CellSize - Brain.CellSize / 2,
+            mouse.Y - player.Y * Brain.CellSize - Brain.CellSize / 2);
 
         public bool DeadInConflict(ICharacter conflictedObject, Game game)
         {
@@ -47,12 +70,12 @@ namespace terraria
 
         public int GetDrawingPriority()
         {
-            throw new System.NotImplementedException();
+            return 0;
         }
 
         public string GetImageFileName()
         {
-            switch (direction)
+            switch (Direction)
             {
                 case Direction.Down:
                     return "player_front.png";
@@ -63,23 +86,18 @@ namespace terraria
                 case Direction.Right:
                     return "player_right.png";
                 default:
-                    throw new Exception($"{direction} is incorrect");
+                    throw new Exception($"{Direction} is incorrect");
             }
         }
 
         public override string ToString() => "P";
 
-        private Direction direction = Direction.Down;
-
-        public Direction GetDirection()
+        public bool IsBrokenBy(IInventoryItem weapon, Game game)
         {
-            return direction;
+            return false;
         }
 
-        public void SetDirection(Direction dir)
-        {
-            direction = dir;
-        }
+        public Direction Direction { get; set; }
 
         // TODO add some inventory logic for fight
         private static readonly HashSet<ICharacter> deadlyCharacters = new HashSet<ICharacter> { new Player() };
@@ -104,12 +122,19 @@ namespace terraria
 
         public int GetDrawingPriority()
         {
-            throw new System.NotImplementedException();
+            return 1;
         }
 
         public string GetImageFileName() => "rock.png";
 
         public override string ToString() => "R";
+
+        public bool IsBrokenBy(IInventoryItem weapon, Game game)
+        {
+            if (weapon is Pick)
+                return true;
+            return false;
+        }
     }
 
     public class Grass : ICharacter
@@ -130,12 +155,19 @@ namespace terraria
 
         public int GetDrawingPriority()
         {
-            throw new System.NotImplementedException();
+            return 1;
         }
 
         public string GetImageFileName() => "grass.png";
 
         public override string ToString() => "G";
+
+        public bool IsBrokenBy(IInventoryItem weapon, Game game)
+        {
+            if (weapon is Shovel)
+                return true;
+            return false;
+        }
     }
 
     public class Air : ICharacter
@@ -152,12 +184,17 @@ namespace terraria
 
         public int GetDrawingPriority()
         {
-            throw new System.NotImplementedException();
+            return 1;
         }
 
         public string GetImageFileName() => "air.png";
 
         public override string ToString() => " ";
+
+        public bool IsBrokenBy(IInventoryItem weapon, Game game)
+        {
+            throw new Exception($"some one tries to break air with {weapon}");
+        }
     }
 
     public class Wood : ICharacter
@@ -178,11 +215,33 @@ namespace terraria
 
         public int GetDrawingPriority()
         {
-            throw new System.NotImplementedException();
+            return 1;
         }
 
         public string GetImageFileName() => "wood.png";
 
         public override string ToString() => "W";
+
+        public bool IsBrokenBy(IInventoryItem weapon, Game game)
+        {
+            if (weapon is Axe)
+                return true;
+            return false;
+        }
+    }
+
+    public class Pick : IInventoryItem
+    {
+
+    }
+
+    public class Axe : IInventoryItem
+    {
+
+    }
+
+    public class Shovel : IInventoryItem
+    {
+
     }
 }

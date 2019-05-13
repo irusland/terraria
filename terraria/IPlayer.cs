@@ -2,7 +2,6 @@
 {
     internal interface IPlayer
     {
-        Direction GetDirection();
-        void SetDirection(Direction direction);
+        Direction Direction { get; set; }
     }
 }

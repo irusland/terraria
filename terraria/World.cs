@@ -9,8 +9,10 @@ namespace terraria
         public int MapWidth => map.GetLength(0);
         public int MapHeight => map.GetLength(1);
         public readonly Player player;
-
         public ICharacter[,] map;
+
+        public bool IsInBounds(int x, int y) => x < MapWidth && x >= 0 && y < MapHeight && y >= 0;
+        public bool IsInBounds(Point point) => IsInBounds(point.X, point.Y);
 
         public override string ToString()
         {

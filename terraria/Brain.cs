@@ -10,8 +10,9 @@ namespace terraria
     {
         public List<Animation> Animations = new List<Animation>();
         public static readonly int CellSize = 32;
+        public static readonly double reachableDistance = 2;
 
-        public void CollectWishes(Game game)
+        public void CollectAnimations(Game game)
         {
             Animations.Clear();
             for (var y = 0; y < game.MapHeight; y++)
@@ -32,9 +33,10 @@ namespace terraria
                     });
                 }
             }
+            Animations = Animations.OrderByDescending(animation => animation.Character.GetDrawingPriority()).ToList();
         }
 
-        public void ApplyWishes(Game game)
+        public void ApplyAnimations(Game game)
         {
             var cohabitants = GetCohabitants(game);
             for (var x = 0; x < game.MapWidth; x++)
@@ -43,6 +45,39 @@ namespace terraria
                 {
                     game.world.map[x, y] = GetNextResident(cohabitants, x, y, game);
                     //Console.WriteLine($"{x}, {y} updated to '{game.world.map[x, y]}' ({game.MapWidth} by {game.MapHeight})");
+                }
+            }
+            ApplyBlockBreaking(game);
+        }
+
+        private void ApplyBlockBreaking(Game game)
+        {
+            foreach (var animation in Animations)
+            {
+                if (animation.Wish.BreakBlockOnPossition.X != -1 &&
+                    animation.Wish.BreakBlockOnPossition.Y != -1)
+                {
+                    var playerPosition = animation.Target;
+                    if (!(game.world.map[playerPosition.X, playerPosition.Y] is Player))
+                        throw new Exception($"{game.world.map[playerPosition.X, playerPosition.Y]} at {playerPosition} is not player and he want to break block");
+                    var player = (Player)game.world.map[playerPosition.X, playerPosition.Y];
+                    var target = animation.Wish.BreakBlockOnPossition;
+                    if (target.X == playerPosition.X && target.Y == playerPosition.Y)
+                        continue;
+                    var offset = Math.Sqrt(Math.Pow(playerPosition.X - target.X, 2) + Math.Pow(playerPosition.Y - target.Y, 2));
+                    if (game.world.IsInBounds(target) && !(game.world.map[target.X, target.Y] is Air) && offset < reachableDistance)
+                    {
+                        var block = game.world.map[target.X, target.Y];
+                        //if (target.IsBrokenBy(player.Inventory.SelectedItem))
+
+                        game.world.map[target.X, target.Y] = new Air();
+                        //player.Inventory.Add(target, 1);
+                        //Console.WriteLine($"{target} was changed to {game.world.map[target.X, target.Y]}");
+                    }
+                    else
+                    {
+                        //Console.WriteLine($"cannot break '{game.world.map[target.X, target.Y]}' at {target.X} {target.Y}");
+                    }
                 }
             }
         }

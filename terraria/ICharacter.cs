@@ -7,5 +7,6 @@ namespace terraria
         int GetDrawingPriority();
         Wish GetWish(int x, int y, Game game);
         bool DeadInConflict(ICharacter conflictedObject, Game game);
+        bool IsBrokenBy(IInventoryItem weapon, Game game);
     }
 }

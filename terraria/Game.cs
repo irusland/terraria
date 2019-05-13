@@ -9,6 +9,8 @@ namespace terraria
     {
         public readonly World world;
         public Keys KeyPressed { get; set; }
+        public Point MousePosition { get; set; }
+        public MouseButtons MouseClicked { get; set; }
         public int MapWidth => world.map.GetLength(0);
         public int MapHeight => world.map.GetLength(1);
 

@@ -9,9 +9,15 @@ namespace terraria
         public static void Main()
         {
             var stringMap = @"
-P W
-GGG
-RRR";
+P W  WW
+RRRGGGW
+GGGGGGW
+GGGRRGW
+GGGGGGW
+GGGGGGW
+GGGGGGW
+GGGGGGW
+RRRGGGW";
             var world = World.Create(stringMap);
             var game = new Game(world);
             Application.Run(new GameWindow(game));

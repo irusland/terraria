@@ -6,14 +6,15 @@ namespace terraria
 {
     public enum Direction
     {
-        Up,
+        None,
         Down,
         Right,
-        Left
+        Left,
+        Up
     }
-    public class Translator
+    public static class Translator
     {
-        public Point DirectionToOffset(Direction direction)
+        public static Point DirectionToOffset(Direction direction)
         {
             switch (direction)
             {

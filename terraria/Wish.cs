@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+
 namespace terraria
 {
     public class Wish
@@ -6,6 +8,7 @@ namespace terraria
         public int XOffset;
         public int YOffset;
         public ICharacter TransformTo;
+        public Point BreakBlockOnPossition = new Point(-1, -1);
 
         public override string ToString()
         {
