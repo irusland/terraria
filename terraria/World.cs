@@ -92,6 +92,7 @@ namespace terraria
                 {
                     player.Inventory.TryPush(slot.Item, slot.Amount);
                 }
+                Console.WriteLine(player.Inventory);
             }
             else
             {
@@ -113,19 +114,20 @@ namespace terraria
             return new Point(-1, -1);
         }
 
-        private static IEnumerable<Inventory.Slot> ParseInfo(string stringInfo)
+        private static List<Inventory.Slot> ParseInfo(string stringInfo)
         {
             var separator = "\n";
             var lines = stringInfo.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
-
+            var result = new List<Inventory.Slot>();
             foreach (var line in lines)
             {
                 var info = line.Split();
                 var itemStr = info[0];
                 var amountStr = info[1];
                 var itemConstructor = itemFromStr[itemStr];
-                yield return new Inventory.Slot(itemConstructor(), int.Parse(amountStr));
+                result.Add(new Inventory.Slot(itemConstructor(), int.Parse(amountStr)));
             }
+            return result;
         }
 
         private static Dictionary<string, Func<IInventoryItem>> itemFromStr = new Dictionary<string, Func<IInventoryItem>>

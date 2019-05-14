@@ -1,23 +1,19 @@
 ﻿<Properties StartupConfiguration="{4EF55E68-7A9A-4371-9CA3-5D62869FFC9C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/GameTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="terraria/GameWindow.cs">
     <Files>
-      <File FileName="terraria/GameWindow.cs" Line="25" Column="31" />
-      <File FileName="terraria/Program.cs" Line="24" Column="9" />
-      <File FileName="terraria/Brain.cs" Line="9" Column="18" />
-      <File FileName="terraria/Chraracters.cs" Line="101" Column="49" />
-      <File FileName="terraria/Inventory.cs" Line="25" Column="6" />
-      <File FileName="terraria/Game.cs" Line="10" Column="28" />
-      <File FileName="terraria/World.cs" Line="98" Column="14" />
-      <File FileName="terraria/IPlayer.cs" Line="6" Column="42" />
-      <File FileName="terraria/InventoryTests.cs" Line="7" Column="25" />
-      <File FileName="terraria/GameTests.cs" Line="36" Column="65" />
+      <File FileName="terraria/GameWindow.cs" Line="125" Column="76" />
+      <File FileName="terraria/Program.cs" Line="26" Column="9" />
+      <File FileName="terraria/Chraracters.cs" Line="243" Column="6" />
+      <File FileName="terraria/Inventory.cs" Line="55" Column="33" />
+      <File FileName="terraria/World.cs" Line="94" Column="18" />
+      <File FileName="terraria/ICharacter.cs" Line="6" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="terraria" expanded="True">
             <Node name="terraria" expanded="True">
-              <Node name="GameTests.cs" selected="True" />
+              <Node name="GameWindow.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -28,9 +24,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.ItemProperties.terraria PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/ruslan/Documents/GitHub/terraria/terraria/Program.cs" relfile="terraria/Program.cs" line="27" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

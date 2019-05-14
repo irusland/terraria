@@ -98,7 +98,7 @@ namespace terraria
         }
 
         public Direction Direction { get; set; }
-        public Inventory Inventory { get; set; }
+        public Inventory Inventory;
 
         // TODO add some inventory logic for fight
         private static readonly HashSet<ICharacter> deadlyCharacters = new HashSet<ICharacter> { new Player() };
@@ -233,16 +233,25 @@ namespace terraria
 
     public class Pick : IInventoryItem
     {
-
+        public string GetImageFileName()
+        {
+            return "pick.png";
+        }
     }
 
     public class Axe : IInventoryItem
     {
-
+        public string GetImageFileName()
+        {
+            return "axe.png";
+        }
     }
 
     public class Shovel : IInventoryItem
     {
-
+        public string GetImageFileName()
+        {
+            return "shovel.png";
+        }
     }
 }

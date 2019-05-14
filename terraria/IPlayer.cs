@@ -3,6 +3,6 @@
     internal interface IPlayer
     {
         Direction Direction { get; set; }
-        Inventory Inventory { get; set; }
+        //Inventory Inventory { get; set; }
     }
 }

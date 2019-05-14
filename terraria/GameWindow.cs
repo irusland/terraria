@@ -31,8 +31,9 @@ namespace terraria
             var files = imagesDirectory.GetFiles();
             foreach (var e in files)
             {
-                if (e.Name != ".DS_Store")
-                    bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
+                if (e.Name == ".DS_Store")
+                    continue;
+                bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
             }
             var timer = new Timer();
             timer.Interval = 5;
@@ -85,18 +86,18 @@ namespace terraria
             game.MousePosition = mousePosition;
         }
 
-        //private Point GetPlayerPosition()
-        //{
-        //    for (var y = 0; y < game.MapHeight; y++)
-        //    {
-        //        for (var x = 0; x < game.MapWidth; x++)
-        //        {
-        //            if (game.world.map[x, y] is Player)
-        //                return new Point(x, y);
-        //        }
-        //    }
-        //    return new Point(-1, -1);
-        //}
+        private Point GetPlayerPosition()
+        {
+            for (var y = 0; y < game.MapHeight; y++)
+            {
+                for (var x = 0; x < game.MapWidth; x++)
+                {
+                    if (game.world.map[x, y] is Player)
+                        return new Point(x, y);
+                }
+            }
+            return new Point(-1, -1);
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -109,7 +110,21 @@ namespace terraria
                 e.Graphics.DrawImage(bitmaps[animation.Character.GetImageFileName()], animation.Location);
             }
             e.Graphics.ResetTransform();
-            //e.Graphics.DrawString(game.world.ToString(), new Font("Arial", 16), Brushes.Green, 0, 0);
+            var inventoryLocationYOffset = game.MapHeight * Brain.CellSize;
+            var playerPos = GetPlayerPosition();
+            var player = (Player)game.world.map[playerPos.X, playerPos.Y];
+            for (var i = 0; i < Inventory.maxSize; i++)
+            {
+                var slot = player.Inventory.inventory[i];
+                if (slot == null)
+                    continue;
+                e.Graphics.DrawImage(bitmaps[slot.Item.GetImageFileName()], new Point(i * Brain.CellSize, inventoryLocationYOffset));
+                e.Graphics.DrawString(slot.Amount.ToString(), new Font("Arial", 16), Brushes.White, i * Brain.CellSize, inventoryLocationYOffset);
+                if (i == player.Inventory.selected)
+                {
+                    e.Graphics.DrawImage(bitmaps["border.png"], new Point(i * Brain.CellSize, inventoryLocationYOffset));
+                }
+            }
         }
 
         private void TimerTick(object sender, EventArgs args)

@@ -7,6 +7,7 @@ namespace terraria
 {
     public interface IInventoryItem
     {
+        string GetImageFileName();
         // Объекты на карте и в интвентаре будут одини и теми же
         // Например камень он будет ICharacter и IInventoryItem
         // Будет реализовать 2 интерфеса, для меня (Карты) и для тебя (Инвентаря)
@@ -33,42 +34,58 @@ namespace terraria
                 Item = item;
                 Amount = amount;
             }
+
+            public override string ToString()
+            {
+                return $"{Item} {Amount}";
+            }
         }
 
-        private const int maxSize = 10;
-        private readonly Slot[] inventory = new Slot[maxSize];
+        public const int maxSize = 10;
+        public readonly Slot[] inventory = new Slot[maxSize];
         private readonly Stack<int> freeIndexes = new Stack<int>();
 
         public Inventory()
         {
-            for (var i = 0; i < 10; i++)
+            for (var i = 9; i >= 0; i--)
                 freeIndexes.Push(i);
         }
 
         public Slot GetSelectedSlot => inventory[selected];
+        private int selector = 0;
         public int selected
         {
-            get { return selected; }
+            get { return selector; }
             set
             {
                 if (value < maxSize && value >= 0)
-                    selected = value;
+                    selector = value;
                 else
                     throw new IndexOutOfRangeException();
             }
         }
 
+        public Slot this[int i]
+        {
+            get { return inventory[i]; }
+            set { inventory[i] = value; }
+        }
 
         public override string ToString()
         {
-            return inventory.ToString();
+            var str = "";
+            foreach (var line in inventory)
+            {
+                str += line;
+            }
+            return str;
         }
 
         public bool TryPush(IInventoryItem item, int count)
         {
             if (!TryGetItemIndex(item, out var index))
             {
-                if (freeIndexes.Any())
+                if (!freeIndexes.Any())
                     return false;
                 index = freeIndexes.Pop();
                 inventory[index] = new Slot(item, count);
@@ -80,7 +97,7 @@ namespace terraria
 
         public bool TryGetItemIndex(IInventoryItem item, out int index)
         {
-            for (var i = 0; i < inventory.Length; i++)
+            for (var i = 0; i < maxSize; i++)
             {
                 var element = inventory[i];
                 if (element != null)
