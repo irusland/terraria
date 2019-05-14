@@ -50,6 +50,11 @@ namespace terraria
             {
                 wish.BreakBlockOnPossition = MousePositionToMapCell(game.MousePosition);
             }
+            if (game.MouseClicked == MouseButtons.Right)
+            {
+                wish.PlaceBlockOnPossition = MousePositionToMapCell(game.MousePosition);
+                wish.PlaceBlockFromInventorySlot = Inventory.selected;
+            }
             return wish;
         }
 

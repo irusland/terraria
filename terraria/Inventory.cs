@@ -127,5 +127,29 @@ namespace terraria
             popItem = null;
             return false;
         }
+
+        public bool TryPopSelectedItem(int amount, out IInventoryItem item)
+        {
+            if (amount == 0)
+            {
+                item = null;
+                return false;
+            }
+            var slot = GetSelectedSlot;
+            if (slot.Amount < amount)
+            {
+                item = null;
+                return false;
+            }
+            slot.Amount -= amount;
+            item = slot.Item;
+
+            if (slot.Amount == 0)
+            {
+                inventory[selected] = null;
+                freeIndexes.Push(selected);
+            }
+            return true;
+        }
     }
 }

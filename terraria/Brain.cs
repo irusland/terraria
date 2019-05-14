@@ -27,7 +27,7 @@ namespace terraria
                         var target = game.world.map[x + wish.XOffset, y + wish.YOffset];
                         if (!(target is Air))
                         {
-                            if (target.IsBrokenBy(player.Inventory.GetSelectedSlot.Item, game))
+                            if (player.Inventory.GetSelectedSlot != null && target.IsBrokenBy(player.Inventory.GetSelectedSlot.Item, game))
                             {
                                 wish.BreakBlockOnPossition = new Point(x + wish.XOffset, y + wish.YOffset);
                             }
@@ -63,7 +63,45 @@ namespace terraria
                 }
             }
             ApplyBlockBreaking(game);
+            ApplyBlockPlaceing(game);
             RefreshInventory(game);
+        }
+
+        private void ApplyBlockPlaceing(Game game)
+        {
+            foreach (var animation in Animations)
+            {
+                if (animation.Wish.PlaceBlockOnPossition.X != -1 &&
+                    animation.Wish.PlaceBlockOnPossition.Y != -1)
+                {
+                    var playerPosition = animation.Target;
+                    if (!(game.world.map[playerPosition.X, playerPosition.Y] is Player))
+                        throw new Exception($"{game.world.map[playerPosition.X, playerPosition.Y]} at {playerPosition} is not player and he want to place block");
+                    var player = (Player)game.world.map[playerPosition.X, playerPosition.Y];
+                    var target = animation.Wish.PlaceBlockOnPossition;
+                    if (target.X == playerPosition.X && target.Y == playerPosition.Y)
+                        continue;
+                    var offset = Math.Sqrt(Math.Pow(playerPosition.X - target.X, 2) + Math.Pow(playerPosition.Y - target.Y, 2));
+                    if (game.world.IsInBounds(target) && (game.world.map[target.X, target.Y] is Air) && offset < reachableDistance)
+                    {
+                        var sourceSlot = player.Inventory.GetSelectedSlot;
+                        if (!(sourceSlot.Item is ICharacter))
+                            continue;
+                        if (sourceSlot.Amount > 0)
+                        {
+                            if (player.Inventory.TryPopSelectedItem(1, out var item))
+                            {
+                                game.world.map[target.X, target.Y] = (ICharacter)sourceSlot.Item;
+                            }
+                        }
+                        //Console.WriteLine($"{target} was changed to {game.world.map[target.X, target.Y]}");
+                    }
+                    else
+                    {
+                        //Console.WriteLine($"cannot break '{game.world.map[target.X, target.Y]}' at {target.X} {target.Y}");
+                    }
+                }
+            }
         }
 
         private void RefreshInventory(Game game)
