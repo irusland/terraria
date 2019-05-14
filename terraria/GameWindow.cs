@@ -14,6 +14,7 @@ namespace terraria
         private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
         private Point mousePosition = new Point(0, 0);
         private readonly HashSet<MouseButtons> mouseClicks = new HashSet<MouseButtons>();
+        private int mouseScrollCount;
         private int tickCount;
         private readonly int animationPrecision = 8;
         private Game game;
@@ -86,6 +87,14 @@ namespace terraria
             game.MousePosition = mousePosition;
         }
 
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            var numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 200;
+            //var numberOfPixelsToMove = numberOfTextLinesToMove * fontSize;
+            mouseScrollCount = numberOfTextLinesToMove;
+            game.mouseScrollCount = mouseScrollCount;
+        }
+
         private Point GetPlayerPosition()
         {
             for (var y = 0; y < game.MapHeight; y++)
@@ -118,8 +127,9 @@ namespace terraria
                 var slot = player.Inventory.inventory[i];
                 if (slot == null)
                     continue;
-                e.Graphics.DrawImage(bitmaps[slot.Item.GetImageFileName()], new Point(i * Brain.CellSize, inventoryLocationYOffset));
-                e.Graphics.DrawString(slot.Amount.ToString(), new Font("Arial", 16), Brushes.White, i * Brain.CellSize, inventoryLocationYOffset);
+                e.Graphics.DrawImage(bitmaps[slot.Item.GetIconFileName()], new Point(i * Brain.CellSize, inventoryLocationYOffset));
+                // TODO fix in console  "Fontconfig warning: ignoring UTF-8: not a valid region tag"
+                e.Graphics.DrawString(slot.Amount.ToString(), new Font("Arial", 10), Brushes.Black, i * Brain.CellSize, inventoryLocationYOffset);
                 if (i == player.Inventory.selected)
                 {
                     e.Graphics.DrawImage(bitmaps["border.png"], new Point(i * Brain.CellSize, inventoryLocationYOffset));

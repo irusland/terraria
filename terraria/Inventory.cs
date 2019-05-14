@@ -7,7 +7,7 @@ namespace terraria
 {
     public interface IInventoryItem
     {
-        string GetImageFileName();
+        string GetIconFileName();
         // Объекты на карте и в интвентаре будут одини и теми же
         // Например камень он будет ICharacter и IInventoryItem
         // Будет реализовать 2 интерфеса, для меня (Карты) и для тебя (Инвентаря)
@@ -58,9 +58,10 @@ namespace terraria
             get { return selector; }
             set
             {
-                if (value < maxSize && value >= 0)
-                    selector = value;
-                else
+                if (value < 0)
+                    value += maxSize;
+                selector = value % (maxSize - freeIndexes.Count);
+                if (selector >= maxSize || selector < 0)
                     throw new IndexOutOfRangeException();
             }
         }

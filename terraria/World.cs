@@ -101,7 +101,7 @@ namespace terraria
             return world;
         }
 
-        private static Point GetPlayerPos(World world)
+        public static Point GetPlayerPos(World world)
         {
             for (var x = 0; x < world.MapWidth; x++)
             {
@@ -133,8 +133,11 @@ namespace terraria
         private static Dictionary<string, Func<IInventoryItem>> itemFromStr = new Dictionary<string, Func<IInventoryItem>>
         {
             {"Axe", () => new Axe()},
+            {"Wood", () => new Wood()},
             {"Pick", () => new Pick()},
+            {"Rock", () => new Rock()},
             {"Shovel", () => new Shovel()},
+            {"Grass", () => new Grass()},
         };
     }
 }

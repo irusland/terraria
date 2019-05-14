@@ -13,6 +13,7 @@ namespace terraria
         public MouseButtons MouseClicked { get; set; }
         public int MapWidth => world.map.GetLength(0);
         public int MapHeight => world.map.GetLength(1);
+        public int mouseScrollCount;
 
         public Game(World world)
         {

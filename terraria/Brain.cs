@@ -22,7 +22,22 @@ namespace terraria
                     var character = game.world.map[x, y];
                     if (character == null) continue;
                     var wish = character.GetWish(x, y, game);
-                    //Console.WriteLine($"{character} {wish}");
+                    if (character is Player player)
+                    {
+                        var target = game.world.map[x + wish.XOffset, y + wish.YOffset];
+                        if (!(target is Air))
+                        {
+                            if (target.IsBrokenBy(player.Inventory.GetSelectedSlot.Item, game))
+                            {
+                                wish.BreakBlockOnPossition = new Point(x + wish.XOffset, y + wish.YOffset);
+                            }
+                            else
+                            {
+                                wish.XOffset = 0;
+                                wish.YOffset = 0;
+                            }
+                        }
+                    }
                     Animations.Add(
                     new Animation
                     {
@@ -48,6 +63,20 @@ namespace terraria
                 }
             }
             ApplyBlockBreaking(game);
+            RefreshInventory(game);
+        }
+
+        private void RefreshInventory(Game game)
+        {
+            var playerPos = World.GetPlayerPos(game.world);
+            var player = (Player)game.world.map[playerPos.X, playerPos.Y];
+            player.Inventory.selected += game.mouseScrollCount;
+
+            if (game.KeyPressed >= Keys.D0 && game.KeyPressed <= Keys.D9)
+            {
+                var number = game.KeyPressed - Keys.D0 - 1;
+                player.Inventory.selected = number;
+            }
         }
 
         private void ApplyBlockBreaking(Game game)
@@ -68,10 +97,11 @@ namespace terraria
                     if (game.world.IsInBounds(target) && !(game.world.map[target.X, target.Y] is Air) && offset < reachableDistance)
                     {
                         var block = game.world.map[target.X, target.Y];
-                        //if (target.IsBrokenBy(player.Inventory.SelectedItem))
-
-                        game.world.map[target.X, target.Y] = new Air();
-                        //player.Inventory.Add(target, 1);
+                        if (block.IsBrokenBy(player.Inventory.GetSelectedSlot.Item, game))
+                        {
+                            game.world.map[target.X, target.Y] = new Air();
+                            player.Inventory.TryPush((IInventoryItem)block, 1);
+                        }
                         //Console.WriteLine($"{target} was changed to {game.world.map[target.X, target.Y]}");
                     }
                     else
@@ -119,6 +149,14 @@ namespace terraria
                 var x = animation.Target.X;
                 var y = animation.Target.Y;
                 var next = animation.Wish.TransformTo ?? animation.Character;
+                if (next is Player player && characters[x, y].Any())
+                {
+                    var block = characters[x, y].Last();
+                    if (!(block is Air))
+                    {
+                        player.Inventory.TryPush((IInventoryItem)block, 1);
+                    }
+                }
                 characters[x, y].Add(next);
             }
             return characters;

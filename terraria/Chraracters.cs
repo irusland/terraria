@@ -136,9 +136,14 @@ namespace terraria
                 return true;
             return false;
         }
+
+        public string GetIconFileName()
+        {
+            return "rock_icon.png";
+        }
     }
 
-    public class Grass : ICharacter
+    public class Grass : ICharacter, IInventoryItem
     {
         public Wish GetWish(int x, int y, Game game)
         {
@@ -169,6 +174,11 @@ namespace terraria
                 return true;
             return false;
         }
+
+        public string GetIconFileName()
+        {
+            return "grass_icon.png";
+        }
     }
 
     public class Air : ICharacter
@@ -198,7 +208,7 @@ namespace terraria
         }
     }
 
-    public class Wood : ICharacter
+    public class Wood : ICharacter, IInventoryItem
     {
         public Wish GetWish(int x, int y, Game game)
         {
@@ -229,11 +239,16 @@ namespace terraria
                 return true;
             return false;
         }
+
+        public string GetIconFileName()
+        {
+            return "wood_icon.png";
+        }
     }
 
     public class Pick : IInventoryItem
     {
-        public string GetImageFileName()
+        public string GetIconFileName()
         {
             return "pick.png";
         }
@@ -241,7 +256,7 @@ namespace terraria
 
     public class Axe : IInventoryItem
     {
-        public string GetImageFileName()
+        public string GetIconFileName()
         {
             return "axe.png";
         }
@@ -249,7 +264,7 @@ namespace terraria
 
     public class Shovel : IInventoryItem
     {
-        public string GetImageFileName()
+        public string GetIconFileName()
         {
             return "shovel.png";
         }
