@@ -13,7 +13,7 @@ namespace terraria
     }
     public static class Translator
     {
-        public static Point DirectionToOffset(Direction direction)
+        private static Point DirectionToOffset(Direction direction)
         {
             switch (direction)
             {

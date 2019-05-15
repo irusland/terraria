@@ -36,8 +36,12 @@ namespace terraria
                     continue;
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
             }
-            var timer = new Timer();
-            timer.Interval = 5;
+
+            var timer = new Timer
+            {
+                Interval = 5
+            };
+
             timer.Tick += TimerTick;
             timer.Start();
         }
@@ -130,7 +134,7 @@ namespace terraria
                 e.Graphics.DrawImage(bitmaps[slot.Item.GetIconFileName()], new Point(i * Brain.CellSize, inventoryLocationYOffset));
                 // TODO fix in console  "Fontconfig warning: ignoring UTF-8: not a valid region tag"
                 e.Graphics.DrawString(slot.Amount.ToString(), new Font("Arial", 10), Brushes.Black, i * Brain.CellSize, inventoryLocationYOffset);
-                if (i == player.Inventory.selected)
+                if (i == player.Inventory.Selected)
                 {
                     e.Graphics.DrawImage(bitmaps["border.png"], new Point(i * Brain.CellSize, inventoryLocationYOffset));
                 }
@@ -150,7 +154,9 @@ namespace terraria
                 animation.Location = new Point(animation.Location.X + 4 * animation.Wish.XOffset,
                         animation.Location.Y + 4 * animation.Wish.YOffset);
             }
+
             tickCount++;
+
             if (tickCount == animationPrecision)
             {
                 gameBrain.ApplyAnimations(game);

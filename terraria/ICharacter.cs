@@ -1,5 +1,4 @@
-﻿using System;
-namespace terraria
+﻿namespace terraria
 {
     public interface ICharacter
     {

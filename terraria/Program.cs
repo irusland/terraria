@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace terraria
 {
     class MainForm
     {
-        public static void Main()
+        private static void Main()
         {
             var stringMap = @"
 P WGGGGRWRGWGWR

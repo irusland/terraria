@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
-using static terraria.Inventory;
+using terraria;
 
-namespace terraria
+namespace tests
 {
-    [TestFixture()]
+    [TestFixture]
     class InventoryTests
     {
         //[Test]

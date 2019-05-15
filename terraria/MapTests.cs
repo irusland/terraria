@@ -1,12 +1,13 @@
 ﻿using NUnit.Framework;
 using System;
+using terraria;
 
-namespace terraria
+namespace tests
 {
     [TestFixture]
     public class MapTests
     {
-        [Test()]
+        [Test]
         public void TestMapCreation()
         {
             var strMap = @"
@@ -23,7 +24,7 @@ RR";
             Assert.That(map[1, 1], Is.EqualTo(new Rock()));
         }
 
-        [Test()]
+        [Test]
         public void TestMapOneByOne()
         {
             var strMap = @"P";
@@ -35,7 +36,7 @@ RR";
             Assert.That(map[0, 0], Is.EqualTo(new Player()));
         }
 
-        [Test()]
+        [Test]
         public void TestMapOneByZero()
         {
             var strMap = @"";
@@ -46,7 +47,7 @@ RR";
             Assert.That(map.GetLength(1), Is.EqualTo(1));
         }
 
-        [Test()]
+        [Test]
         public void TestMapCreationFailure()
         {
             var strMap = @"

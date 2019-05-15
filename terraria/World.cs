@@ -43,6 +43,7 @@ namespace terraria
             {
 
             }
+
             map = new ICharacter[width, height];
 
             for (var x = 0; x < width; x++)
@@ -133,7 +134,7 @@ namespace terraria
             return result;
         }
 
-        private static Dictionary<string, Func<IInventoryItem>> itemFromStr = new Dictionary<string, Func<IInventoryItem>>
+        private static readonly Dictionary<string, Func<IInventoryItem>> itemFromStr = new Dictionary<string, Func<IInventoryItem>>
         {
             {"Axe", () => new Axe()},
             {"Wood", () => new Wood()},
