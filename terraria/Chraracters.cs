@@ -293,7 +293,7 @@ namespace terraria
             new [] { 0, -1 },
         };
 
-        public int SearchPathToDigger(List<Wish> result,
+        private int SearchPathToDigger(List<Wish> result,
             int posX,
             int posY,
             List<Wish> path,

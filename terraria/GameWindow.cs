@@ -146,8 +146,7 @@ namespace terraria
             if (tickCount == 0)
             {
                 gameBrain.CollectAnimations(game);
-                //Console.WriteLine($"Updated");
-                //Console.WriteLine($"{game.world}\t{game.MapWidth}x{game.MapHeight}");
+              
             }
             foreach (var animation in gameBrain.Animations)
             {
