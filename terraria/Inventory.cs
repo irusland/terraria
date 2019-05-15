@@ -23,6 +23,12 @@ namespace terraria
 
     public class Inventory
     {
+        public const int maxSize = 10;
+        public readonly Slot[] inventory = new Slot[maxSize];
+        public Slot GetSelectedSlot => inventory[Selected];
+        private readonly Stack<int> freeIndexes = new Stack<int>();
+        private int selector = 0;
+
         public class Slot
         {
             public IInventoryItem Item;
@@ -40,18 +46,12 @@ namespace terraria
             }
         }
 
-        public const int maxSize = 10;
-        public readonly Slot[] inventory = new Slot[maxSize];
-        private readonly Stack<int> freeIndexes = new Stack<int>();
-
         public Inventory()
         {
             for (var i = 9; i >= 0; i--)
                 freeIndexes.Push(i);
         }
 
-        public Slot GetSelectedSlot => inventory[Selected];
-        private int selector = 0;
         public int Selected
         {
             get { return selector; }

@@ -28,6 +28,47 @@ namespace terraria
             return builder.ToString();
         }
 
+        public static World Create(string stringMap)
+        {
+            return new World(stringMap);
+        }
+
+        public static World CreateWithInfo(string stringMap, string stringInfo)
+        {
+            var world = new World(stringMap);
+
+            var slots = ParseInfo(stringInfo);
+            var playerPos = GetPlayerPos(world);
+            var character = world.map[playerPos.X, playerPos.Y];
+            if (character is Player player)
+            {
+                player.Inventory = new Inventory();
+                foreach (var slot in slots)
+                {
+                    player.Inventory.TryPush(slot.Item, slot.Amount);
+                }
+                Console.WriteLine(player.Inventory);
+            }
+            else
+            {
+                throw new Exception("Not a player");
+            }
+            return world;
+        }
+
+        public static Point GetPlayerPos(World world)
+        {
+            for (var x = 0; x < world.MapWidth; x++)
+            {
+                for (var y = 0; y < world.MapHeight; y++)
+                {
+                    if (world.map[x, y] is Player)
+                        return new Point(x, y);
+                }
+            }
+            return new Point(-1, -1);
+        }
+
         private World(string stringMap)
         {
             var separator = "\n";
@@ -72,47 +113,6 @@ namespace terraria
                     }
                 }
             }
-        }
-
-        public static World Create(string stringMap)
-        {
-            return new World(stringMap);
-        }
-
-        public static World CreateWithInfo(string stringMap, string stringInfo)
-        {
-            var world = new World(stringMap);
-
-            var slots = ParseInfo(stringInfo);
-            var playerPos = GetPlayerPos(world);
-            var character = world.map[playerPos.X, playerPos.Y];
-            if (character is Player player)
-            {
-                player.Inventory = new Inventory();
-                foreach (var slot in slots)
-                {
-                    player.Inventory.TryPush(slot.Item, slot.Amount);
-                }
-                Console.WriteLine(player.Inventory);
-            }
-            else
-            {
-                throw new Exception("Not a player");
-            }
-            return world;
-        }
-
-        public static Point GetPlayerPos(World world)
-        {
-            for (var x = 0; x < world.MapWidth; x++)
-            {
-                for (var y = 0; y < world.MapHeight; y++)
-                {
-                    if (world.map[x, y] is Player)
-                        return new Point(x, y);
-                }
-            }
-            return new Point(-1, -1);
         }
 
         private static List<Inventory.Slot> ParseInfo(string stringInfo)

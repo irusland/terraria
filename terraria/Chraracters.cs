@@ -9,7 +9,12 @@ namespace terraria
     {
         public Wish GetWish(int x, int y, Game game)
         {
-            var wish = new Wish { XOffset = 0, YOffset = 0 };
+            var wish = new Wish
+            {
+                XOffset = 0,
+                YOffset = 0
+            };
+
             switch (game.KeyPressed)
             {
                 case Keys.Left:
@@ -58,13 +63,7 @@ namespace terraria
             return wish;
         }
 
-        private Point MousePositionToMapCell(Point mousePosition)
-        {
-            return new Point(
-                mousePosition.X / Brain.CellSize,
-                mousePosition.Y / Brain.CellSize);
-        }
-
+        
         public Point GetMouseOffset(Point player, Point mouse)
         {
             return new Point(
@@ -113,6 +112,14 @@ namespace terraria
 
         // TODO add some inventory logic for fight
         private static readonly HashSet<ICharacter> deadlyCharacters = new HashSet<ICharacter> { new Player() };
+
+        private Point MousePositionToMapCell(Point mousePosition)
+        {
+            return new Point(
+                mousePosition.X / Brain.CellSize,
+                mousePosition.Y / Brain.CellSize);
+        }
+
     }
 
     public class Rock : ICharacter, IInventoryItem

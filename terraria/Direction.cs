@@ -11,6 +11,7 @@ namespace terraria
         Left,
         Up
     }
+
     public static class Translator
     {
         private static Point DirectionToOffset(Direction direction)
