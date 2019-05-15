@@ -54,6 +54,9 @@ namespace terraria
                         case 'P':
                             map[x, y] = new Player();
                             break;
+                        case 'Z':
+                            map[x, y] = new Zombie();
+                            break;
                         case 'G':
                             map[x, y] = new Grass();
                             break;
@@ -138,6 +141,7 @@ namespace terraria
             {"Rock", () => new Rock()},
             {"Shovel", () => new Shovel()},
             {"Grass", () => new Grass()},
+            {"Sword", () => new Sword()},
         };
     }
 }
