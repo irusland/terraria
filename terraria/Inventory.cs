@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace terraria
 {
@@ -51,9 +50,9 @@ namespace terraria
                 freeIndexes.Push(i);
         }
 
-        public Slot GetSelectedSlot => inventory[selected];
+        public Slot GetSelectedSlot => inventory[Selected];
         private int selector = 0;
-        public int selected
+        public int Selected
         {
             get { return selector; }
             set
@@ -146,8 +145,8 @@ namespace terraria
 
             if (slot.Amount == 0)
             {
-                inventory[selected] = null;
-                freeIndexes.Push(selected);
+                inventory[Selected] = null;
+                freeIndexes.Push(Selected);
             }
             return true;
         }

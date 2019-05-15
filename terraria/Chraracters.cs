@@ -53,18 +53,24 @@ namespace terraria
             if (game.MouseClicked == MouseButtons.Right)
             {
                 wish.PlaceBlockOnPossition = MousePositionToMapCell(game.MousePosition);
-                wish.PlaceBlockFromInventorySlot = Inventory.selected;
+                wish.PlaceBlockFromInventorySlot = Inventory.Selected;
             }
             return wish;
         }
 
-        private Point MousePositionToMapCell(Point mousePosition) =>
-            new Point(mousePosition.X / Brain.CellSize,
-            mousePosition.Y / Brain.CellSize);
+        private Point MousePositionToMapCell(Point mousePosition)
+        {
+            return new Point(
+                mousePosition.X / Brain.CellSize,
+                mousePosition.Y / Brain.CellSize);
+        }
 
-        public Point GetMouseOffset(Point player, Point mouse) =>
-            new Point(mouse.X - player.X * Brain.CellSize - Brain.CellSize / 2,
-            mouse.Y - player.Y * Brain.CellSize - Brain.CellSize / 2);
+        public Point GetMouseOffset(Point player, Point mouse)
+        {
+            return new Point(
+                mouse.X - player.X * Brain.CellSize - Brain.CellSize / 2,
+                mouse.Y - player.Y * Brain.CellSize - Brain.CellSize / 2);
+        }
 
         public bool DeadInConflict(ICharacter conflictedObject, Game game)
         {

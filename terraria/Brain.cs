@@ -10,7 +10,7 @@ namespace terraria
     {
         public List<Animation> Animations = new List<Animation>();
         public static readonly int CellSize = 32;
-        public static readonly double reachableDistance = 2;
+        private static readonly double reachableDistance = 2;
 
         public void CollectAnimations(Game game)
         {
@@ -20,7 +20,8 @@ namespace terraria
                 for (var x = 0; x < game.MapWidth; x++)
                 {
                     var character = game.world.map[x, y];
-                    if (character == null) continue;
+                    if (character == null)
+                        continue;
                     var wish = character.GetWish(x, y, game);
                     if (character is Player player)
                     {
@@ -48,7 +49,9 @@ namespace terraria
                     });
                 }
             }
-            Animations = Animations.OrderByDescending(animation => animation.Character.GetDrawingPriority()).ToList();
+            Animations = Animations
+                .OrderByDescending(animation => animation.Character.GetDrawingPriority())
+                .ToList();
         }
 
         public void ApplyAnimations(Game game)
@@ -71,8 +74,8 @@ namespace terraria
         {
             foreach (var animation in Animations)
             {
-                if (animation.Wish.PlaceBlockOnPossition.X != -1 &&
-                    animation.Wish.PlaceBlockOnPossition.Y != -1)
+                if (animation.Wish.PlaceBlockOnPossition.X != -1
+                    && animation.Wish.PlaceBlockOnPossition.Y != -1)
                 {
                     var playerPosition = animation.Target;
                     if (!(game.world.map[playerPosition.X, playerPosition.Y] is Player))
@@ -108,12 +111,12 @@ namespace terraria
         {
             var playerPos = World.GetPlayerPos(game.world);
             var player = (Player)game.world.map[playerPos.X, playerPos.Y];
-            player.Inventory.selected += game.mouseScrollCount;
+            player.Inventory.Selected += game.mouseScrollCount;
 
             if (game.KeyPressed >= Keys.D0 && game.KeyPressed <= Keys.D9)
             {
                 var number = game.KeyPressed - Keys.D0 - 1;
-                player.Inventory.selected = number;
+                player.Inventory.Selected = number;
             }
         }
 
@@ -121,8 +124,8 @@ namespace terraria
         {
             foreach (var animation in Animations)
             {
-                if (animation.Wish.BreakBlockOnPossition.X != -1 &&
-                    animation.Wish.BreakBlockOnPossition.Y != -1)
+                if (animation.Wish.BreakBlockOnPossition.X != -1
+                   && animation.Wish.BreakBlockOnPossition.Y != -1)
                 {
                     var playerPosition = animation.Target;
                     if (!(game.world.map[playerPosition.X, playerPosition.Y] is Player))

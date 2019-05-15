@@ -1,14 +1,11 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace terraria
 {
-    [TestFixture()]
+    [TestFixture]
     public class GameTests
     {
-        [Test()]
+        [Test]
         public void TestJump()
         {
             var stringMap = @"
@@ -24,7 +21,7 @@ GGG";
             Assert.That(game.world.map[1, 1], Is.EqualTo(new Air()));
         }
 
-        [Test()]
+        [Test]
         public void TestDigGrass()
         {
             var stringMap = @"
@@ -42,7 +39,7 @@ GGG";
             Assert.That(game.world.map[1, 1], Is.EqualTo(new Air()));
         }
 
-        [Test()]
+        [Test]
         public void TestDigRock()
         {
             var stringMap = @"
@@ -60,7 +57,7 @@ RRR";
             Assert.That(game.world.map[1, 1], Is.EqualTo(new Air()));
         }
 
-        [Test()]
+        [Test]
         public void TestDigWood()
         {
             var stringMap = @"
