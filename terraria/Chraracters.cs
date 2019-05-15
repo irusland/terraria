@@ -75,6 +75,8 @@ namespace terraria
 
         public bool DeadInConflict(ICharacter conflictedObject, Game game)
         {
+            if (conflictedObject is Zombie && !((Zombie)conflictedObject).DeadInConflict(this, game))
+                return true;
             if (!deadlyCharacters.Contains(conflictedObject))
                 return false;
             return true;
@@ -263,8 +265,7 @@ namespace terraria
         public Wish GetWish(int x, int y, Game game)
         {
             var commands = new List<Wish>();
-            var playerPos = World.GetPlayerPos(game.world);
-            SearchPathToDigger(commands, playerPos.X, playerPos.Y, new List<Wish>(), int.MaxValue, game);
+            SearchPathToDigger(commands, x, y, new List<Wish>(), int.MaxValue, game);
             if (commands.Count == 0)
                 return new Wish();
             return commands.Last();
@@ -347,7 +348,7 @@ namespace terraria
 
         public bool IsAbleToPass(int posX, int posY, Game game)
         {
-            return game.world.map[posX, posY] is Air;
+            return game.world.map[posX, posY] is Air | game.world.map[posX, posY] is Player;
         }
 
         public string GetImageFileName()

@@ -162,7 +162,11 @@ namespace terraria
                 foreach (var resident in chunk)
                 {
                     if (resident != pretender && pretender.DeadInConflict(resident, game))
+                    {
                         residents.Remove(pretender);
+                    }
+                    //if (resident is Player && pretender is Zombie && resident.DeadInConflict(pretender, game))
+                        //residents.Remove(resident);
                 }
             }
 

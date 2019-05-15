@@ -8,5 +8,10 @@ namespace terraria
         public ICharacter Character;
         public Point Location;
         public Point Target;
+
+        public override string ToString()
+        {
+            return Character.ToString();
+        }
     }
 }

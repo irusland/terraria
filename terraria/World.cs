@@ -115,6 +115,7 @@ namespace terraria
                         return new Point(x, y);
                 }
             }
+            throw new Exception("GAME ENDED PLAYER DIED!");
             return new Point(-1, -1);
         }
 
