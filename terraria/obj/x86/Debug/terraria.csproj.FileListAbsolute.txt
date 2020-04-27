@@ -41,3 +41,17 @@ C:/Users/eksto/Documents/GitHub/terraria/terraria/obj/x86/Debug/terraria.pdb
 /Users/ruslansirazhetdinov/Documents/GitHub/terraria/terraria/bin/Debug/nunit.framework.xml
 /Users/ruslansirazhetdinov/Documents/GitHub/terraria/terraria/obj/x86/Debug/terraria.csproj.CopyComplete
 /Users/ruslan/Documents/GitHub/terraria/terraria/bin/Debug/terraria.exe.config
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/terraria.exe.config
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/terraria.exe
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/terraria.pdb
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/nunit.framework.dll
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/nunit.framework.pdb
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/nunit.framework.xml
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.csprojAssemblyReference.cache
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.csproj.CoreCompileInputs.cache
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.csproj.CopyComplete
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.exe
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.pdb
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.dll
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.pdb
+/Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.xml

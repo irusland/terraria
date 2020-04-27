@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using OpenTK;
+using System.Windows.Forms;
 
 namespace terraria
 {
@@ -27,7 +28,16 @@ Pick 1
 Wood 100";
             var world = World.CreateWithInfo(stringMap, stringInfo);
             var game = new Game(world);
-            Application.Run(new GameWindow(game));
+            MainWindow window = new MainWindow(game);
+            window.VSync = OpenTK.VSyncMode.Adaptive;
+            window.Run();
+        }
+    }
+
+    public class MainWindow : OpenTK.GameWindow
+    {
+        public MainWindow(Game game)
+        {
         }
     }
 }
