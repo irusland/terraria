@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
+using OpenTK.Input;
 
 namespace terraria
 {
@@ -113,9 +113,9 @@ namespace terraria
             var player = (Player)game.world.map[playerPos.X, playerPos.Y];
             player.Inventory.Selected += game.mouseScrollCount;
 
-            if (game.KeyPressed >= Keys.D0 && game.KeyPressed <= Keys.D9)
+            if (game.KeyPressed >= Key.Number0 && game.KeyPressed <= Key.Number9)
             {
-                var number = game.KeyPressed - Keys.D0 - 1;
+                var number = game.KeyPressed - Key.Number0 - 1;
                 player.Inventory.Selected = number;
             }
         }

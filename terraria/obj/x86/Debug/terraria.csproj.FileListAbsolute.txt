@@ -55,3 +55,17 @@ C:/Users/eksto/Documents/GitHub/terraria/terraria/obj/x86/Debug/terraria.pdb
 /Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.dll
 /Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.pdb
 /Users/irusland/iCloudDrive(Archive)first/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.xml
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/terraria.exe.config
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/terraria.exe
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/terraria.pdb
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/nunit.framework.dll
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.dll
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/nunit.framework.pdb
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/nunit.framework.xml
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.pdb
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/bin/Debug/OpenTK.xml
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.csprojAssemblyReference.cache
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.csproj.CoreCompileInputs.cache
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.csproj.CopyComplete
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.exe
+/Users/irusland/Desktop/UrFU/uLearn_OOP/Terraria/terraria/terraria/obj/x86/Debug/terraria.pdb

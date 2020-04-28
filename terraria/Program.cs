@@ -28,16 +28,9 @@ Pick 1
 Wood 100";
             var world = World.CreateWithInfo(stringMap, stringInfo);
             var game = new Game(world);
-            MainWindow window = new MainWindow(game);
+            GameWindow window = new GameWindow(game);
             window.VSync = OpenTK.VSyncMode.Adaptive;
             window.Run();
-        }
-    }
-
-    public class MainWindow : OpenTK.GameWindow
-    {
-        public MainWindow(Game game)
-        {
         }
     }
 }

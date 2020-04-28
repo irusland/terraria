@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
+using OpenTK.Input;
 
 namespace terraria
 {
@@ -13,23 +13,23 @@ namespace terraria
             var wish = new Wish { XOffset = 0, YOffset = 0 };
             switch (game.KeyPressed)
             {
-                case Keys.Left:
-                case Keys.A:
+                case Key.Left:
+                case Key.A:
                     if (x - 1 >= 0)
                         wish.XOffset = -1;
                     break;
-                case Keys.Right:
-                case Keys.D:
+                case Key.Right:
+                case Key.D:
                     if (x + 1 < game.world.map.GetLength(0))
                         wish.XOffset = 1;
                     break;
-                case Keys.Up:
-                case Keys.W:
+                case Key.Up:
+                case Key.W:
                     if (y - 1 >= 0)
                         wish.YOffset = -1;
                     break;
-                case Keys.Down:
-                case Keys.S:
+                case Key.Down:
+                case Key.S:
                     if (y + 1 < game.world.map.GetLength(1))
                         wish.YOffset = 1;
                     break;
@@ -47,11 +47,11 @@ namespace terraria
             if (my - mx > 0 && my + mx >= 0)
                 Direction = Direction.Down;
 
-            if (game.MouseClicked == MouseButtons.Left)
+            if (game.MouseClicked == MouseButton.Left)
             {
                 wish.BreakBlockOnPossition = MousePositionToMapCell(game.MousePosition);
             }
-            if (game.MouseClicked == MouseButtons.Right)
+            if (game.MouseClicked == MouseButton.Right)
             {
                 wish.PlaceBlockOnPossition = MousePositionToMapCell(game.MousePosition);
                 wish.PlaceBlockFromInventorySlot = Inventory.Selected;
