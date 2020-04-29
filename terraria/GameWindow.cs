@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
+using System.Timers;
 using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
@@ -27,15 +27,20 @@ namespace terraria
 
         public GameWindow(Game game)
         {
+            Load += OnLoad;
             KeyDown += OnKeyDown;
             KeyUp += OnKeyUp;
             MouseDown += OnMouseDown;
             MouseUp += OnMouseUp;
             MouseMove += OnMouseMove;
             MouseWheel += OnMouseWheel;
-            UpdateFrame += OnPaint; 
+
+            Resize += ResizeWindow;
+            // RenderFrame += OnRenderFrame;
+            RenderFrame += OnPaint;
+            UpdateFrame += OnPaint;
             
-            GL.Enable(EnableCap.Texture2D);
+            // GL.Enable(EnableCap.Texture2D);
 
             this.game = game;
             gameBrain = new Brain();
@@ -57,14 +62,36 @@ namespace terraria
                 Interval = 5
             };
 
-            timer.Tick += TimerTick;
+            timer.Elapsed += TimerTick;
             timer.Start();
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void OnRenderFrame(object sender, FrameEventArgs e)
         {
-            base.OnLoad(e);
-            // Text = "Terraria";
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Begin(BeginMode.Quads);
+            GL.Vertex2(0, 0);
+            GL.Vertex2(20, 0);
+            GL.Vertex2(20, 20);
+            GL.Vertex2(0, 20);
+            // GL.Color3(100, 255, 0);
+            GL.End();
+            SwapBuffers();
+        }
+
+        private void ResizeWindow(object sender, EventArgs e)
+        {
+            GL.Viewport(0,0, 100, 100);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+            GL.Ortho(0.0, 50.0, 0.0, 50.0, -1.0, 1.0);
+            GL.MatrixMode(MatrixMode.Modelview);
+        }
+
+        private void OnLoad(object sender, EventArgs eventArgs)
+        {
+            GL.ClearColor(.5f, 0.0f, 0.0f, 0.0f);
+            this.Title = "Terraria";
             // DoubleBuffered = true;
         }
 
@@ -130,17 +157,20 @@ namespace terraria
 
         private void OnPaint(object sender, FrameEventArgs e)
         {
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+            Console.WriteLine("Onpaint");
             // e.Graphics.TranslateTransform(0, Brain.CellSize);
             GL.Begin(BeginMode.Quads);
             GL.Vertex2(0, 0);
             GL.Vertex2(Brain.CellSize * game.MapWidth, 0);
             GL.Vertex2(Brain.CellSize * game.MapWidth, Brain.CellSize * game.MapHeight);
             GL.Vertex2(0, Brain.CellSize * game.MapHeight);
-            GL.Color3(0, 255, 0);
+            GL.Color3(100, 255, 0);
             GL.End();
             
-            foreach (var animation in gameBrain.Animations)
+            for (var i = 0; i < gameBrain.Animations.Count; i++)
             {
+                var animation = gameBrain.Animations[i];
                 DrawImage(animation.Character.GetImageFileName(), animation.Location);
             }
             // e.Graphics.ResetTransform();
@@ -162,6 +192,7 @@ namespace terraria
                     DrawImage("border.png", new Point(i * Brain.CellSize, inventoryLocationYOffset));
                 }
             }
+            SwapBuffers();
         }
 
         private void DrawImage(string name, Point location)
@@ -188,6 +219,7 @@ namespace terraria
 
         private void TimerTick(object sender, EventArgs args)
         {
+            Console.WriteLine(tickCount);
             if (tickCount == 0)
             {
                 gameBrain.CollectAnimations(game);
@@ -203,8 +235,9 @@ namespace terraria
 
             if (tickCount == animationPrecision)
             {
-                gameBrain.ApplyAnimations(game);
                 tickCount = 0;
+                // Console.WriteLine("Reset");
+                gameBrain.ApplyAnimations(game);
             }
             // Invalidate();
         }

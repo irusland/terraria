@@ -1,5 +1,6 @@
 ﻿using OpenTK;
 using System.Windows.Forms;
+using OpenTK.Graphics.OpenGL;
 
 namespace terraria
 {
