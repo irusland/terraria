@@ -15,6 +15,7 @@ namespace terraria
     public class GameWindow : OpenTK.GameWindow
     {
         private readonly Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
+        private readonly Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
         private readonly Brain gameBrain;
         private readonly HashSet<Key> pressedKeys = new HashSet<Key>();
         private Point mousePosition = new Point(0, 0);
@@ -23,7 +24,6 @@ namespace terraria
         private int tickCount;
         private readonly int animationPrecision = 8;
         private Game game;
-
 
         public GameWindow(Game game)
         {
@@ -40,7 +40,7 @@ namespace terraria
             RenderFrame += OnPaint;
             UpdateFrame += OnPaint;
             
-            // GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Texture2D);
 
             this.game = game;
             gameBrain = new Brain();
@@ -55,6 +55,8 @@ namespace terraria
                 if (e.Name == ".DS_Store")
                     continue;
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
+                textures[e.Name] = new Texture(LoadTexture(e.Name), Brain.CellSize, Brain.CellSize);
+
             }
 
             var timer = new Timer
@@ -66,26 +68,13 @@ namespace terraria
             timer.Start();
         }
 
-        private void OnRenderFrame(object sender, FrameEventArgs e)
-        {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Begin(BeginMode.Quads);
-            GL.Vertex2(0, 0);
-            GL.Vertex2(20, 0);
-            GL.Vertex2(20, 20);
-            GL.Vertex2(0, 20);
-            // GL.Color3(100, 255, 0);
-            GL.End();
-            SwapBuffers();
-        }
-
         private void ResizeWindow(object sender, EventArgs e)
         {
-            GL.Viewport(0,0, 100, 100);
+            GL.Viewport(this.ClientRectangle);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(0.0, 50.0, 0.0, 50.0, -1.0, 1.0);
-            GL.MatrixMode(MatrixMode.Modelview);
+            // TODO fix mouse position relative to player's  
+            GL.Ortho(0.0, this.Size.Width * 2, Size.Height * 2, 0.0, -1.0, 1.0);
         }
 
         private void OnLoad(object sender, EventArgs eventArgs)
@@ -106,14 +95,15 @@ namespace terraria
         {
             pressedKeys.Remove(e.Key);
             game.KeyPressed = pressedKeys.Any() ? pressedKeys.Min() : Key.Unknown;
+            Console.WriteLine($"{e.Key} pressed");
         }
 
-        //protected override void OnMouseClick(MouseEventArgs e)
-        //{
-        //    mouseClicks.Add(e.Button);
-        //    game.MouseClicked = e.Button;
-        //    Console.WriteLine($"{game.MouseClicked} sent");
-        //}
+        // protected override void OnMouseClick(MouseEventArgs e)
+        // {
+        //     mouseClicks.Add(e.Button);
+        //     game.MouseClicked = e.Button;
+        //     Console.WriteLine($"{game.MouseClicked} sent");
+        // }
         
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -158,14 +148,13 @@ namespace terraria
         private void OnPaint(object sender, FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            Console.WriteLine("Onpaint");
+            GL.ClearColor(Color.CornflowerBlue);
             // e.Graphics.TranslateTransform(0, Brain.CellSize);
             GL.Begin(BeginMode.Quads);
             GL.Vertex2(0, 0);
             GL.Vertex2(Brain.CellSize * game.MapWidth, 0);
             GL.Vertex2(Brain.CellSize * game.MapWidth, Brain.CellSize * game.MapHeight);
             GL.Vertex2(0, Brain.CellSize * game.MapHeight);
-            GL.Color3(100, 255, 0);
             GL.End();
             
             for (var i = 0; i < gameBrain.Animations.Count; i++)
@@ -195,31 +184,53 @@ namespace terraria
             SwapBuffers();
         }
 
-        private void DrawImage(string name, Point location)
+        private int LoadTexture(string name)
         {
-            // TODO Texture load 1 time another place 
             var id = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, id);
             var bmp = bitmaps[name];
-            var data = bmp.LockBits(new Rectangle(new Point(0, 0), bmp.Size), 
+            var data = bmp.LockBits(new Rectangle(new Point(0, 0), new Size(Brain.CellSize, Brain.CellSize)), 
                 ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, 
                 data.Width, data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra,
                 PixelType.UnsignedByte, data.Scan0);
             bmp.UnlockBits(data);
-                
-            GL.BindTexture(TextureTarget.Texture2D, id);
+            
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
+                (int) TextureWrapMode.Clamp);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,
+                (int) TextureWrapMode.Clamp);
+            
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
+                (int) TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
+                (int) TextureMagFilter.Linear);
+
+            return id;
+        }
+        
+        private void DrawImage(string name, Point location)
+        {
+            var texture = textures[name];
+            GL.BindTexture(TextureTarget.Texture2D, texture.ID);
             GL.Begin(BeginMode.Quads);
-            GL.Vertex2(location.X * Brain.CellSize, location.Y * Brain.CellSize);
-            GL.Vertex2((location.X + 1) * Brain.CellSize, location.Y * Brain.CellSize);
-            GL.Vertex2(location.X * Brain.CellSize, (location.Y + 1) * Brain.CellSize);
-            GL.Vertex2((location.X + 1) * Brain.CellSize, (location.Y + 1) * Brain.CellSize);
+            
+            GL.TexCoord2(0, 0);
+            GL.Vertex2(location.X, location.Y);
+            
+            GL.TexCoord2(1, 0);
+            GL.Vertex2(location.X + texture.Width, location.Y);
+            
+            GL.TexCoord2(1, 1);
+            GL.Vertex2(location.X + texture.Width, location.Y + texture.Height);
+
+            GL.TexCoord2(0, 1);
+            GL.Vertex2(location.X, location.Y + texture.Height);
             GL.End();
         }
 
         private void TimerTick(object sender, EventArgs args)
         {
-            Console.WriteLine(tickCount);
             if (tickCount == 0)
             {
                 gameBrain.CollectAnimations(game);
@@ -236,7 +247,6 @@ namespace terraria
             if (tickCount == animationPrecision)
             {
                 tickCount = 0;
-                // Console.WriteLine("Reset");
                 gameBrain.ApplyAnimations(game);
             }
             // Invalidate();

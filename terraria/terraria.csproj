@@ -49,6 +49,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="GameWindow.cs" />
+    <Compile Include="Texture.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Chraracters.cs" />
     <Compile Include="GameTests.cs" />

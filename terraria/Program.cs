@@ -9,7 +9,7 @@ namespace terraria
         private static void Main()
         {
             var stringMap = @"
-PWWGGGGRWRGWGWR
+P WGGGGRWRGWGWR
 R RGGGWGWGWRWWW
 G GGGGGGWGWRGGR
 G GRRGWRRRGGGGW

@@ -23,14 +23,14 @@ namespace terraria
                 {
                     builder.Append(map[x, y]);
                 }
-                builder.Append("\n");
+                builder.Append(System.Environment.NewLine);
             }
             return builder.ToString();
         }
 
         private World(string stringMap)
         {
-            var separator = "\n";
+            var separator = System.Environment.NewLine;
             var lines = stringMap.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             var height = lines.Length;
@@ -112,7 +112,9 @@ namespace terraria
                 for (var y = 0; y < world.MapHeight; y++)
                 {
                     if (world.map[x, y] is Player)
+                    {
                         return new Point(x, y);
+                    }
                 }
             }
             throw new Exception("GAME ENDED PLAYER DIED!");
@@ -121,7 +123,7 @@ namespace terraria
 
         private static List<Inventory.Slot> ParseInfo(string stringInfo)
         {
-            var separator = "\n";
+            var separator = System.Environment.NewLine;
             var lines = stringInfo.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
             var result = new List<Inventory.Slot>();
             foreach (var line in lines)

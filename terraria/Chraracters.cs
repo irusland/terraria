@@ -68,9 +68,11 @@ namespace terraria
 
         public Point GetMouseOffset(Point player, Point mouse)
         {
-            return new Point(
+            var offset = new Point(
                 mouse.X - player.X * Brain.CellSize - Brain.CellSize / 2,
                 mouse.Y - player.Y * Brain.CellSize - Brain.CellSize / 2);
+            Console.WriteLine($"mx{mouse.X} px{player.X * Brain.CellSize} my{mouse.Y} py{player.Y * Brain.CellSize}");
+            return offset;
         }
 
         public bool DeadInConflict(ICharacter conflictedObject, Game game)
