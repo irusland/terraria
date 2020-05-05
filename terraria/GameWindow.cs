@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Timers;
 using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
@@ -38,7 +37,7 @@ namespace terraria
             Resize += ResizeWindow;
             // RenderFrame += OnRenderFrame;
             RenderFrame += OnPaint;
-            UpdateFrame += OnPaint;
+            UpdateFrame += TimerTick;
             
             GL.Enable(EnableCap.Texture2D);
 
@@ -58,14 +57,6 @@ namespace terraria
                 textures[e.Name] = new Texture(LoadTexture(e.Name), Brain.CellSize, Brain.CellSize);
 
             }
-
-            var timer = new Timer
-            {
-                Interval = 5
-            };
-
-            timer.Elapsed += TimerTick;
-            timer.Start();
         }
 
         private void ResizeWindow(object sender, EventArgs e)
@@ -231,6 +222,7 @@ namespace terraria
 
         private void TimerTick(object sender, EventArgs args)
         {
+            Console.WriteLine(tickCount);
             if (tickCount == 0)
             {
                 gameBrain.CollectAnimations(game);

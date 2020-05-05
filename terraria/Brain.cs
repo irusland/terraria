@@ -50,7 +50,7 @@ namespace terraria
                 }
             }
             Animations = Animations
-                .OrderByDescending(animation => animation.Character.GetDrawingPriority())
+                .OrderByDescending(animation => animation?.Character.GetDrawingPriority())
                 .ToList();
         }
 
